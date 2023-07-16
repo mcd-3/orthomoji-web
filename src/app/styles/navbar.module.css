@@ -1,0 +1,64 @@
+.navbar {
+    width: 100%;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    display: flex;
+    justify-content: space-around;
+    /* TODO: Change this colour! */
+    background-color: grey;
+    border-bottom: 0.5rem solid #5a5a5a;
+}
+
+.title {
+    margin: 0;
+    font-size: 2.4em;
+    color: #FFFFFF;
+}
+
+.github {
+    margin: 0;
+    width: 64px;
+    height: 64px;
+    float: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    /* Filters generated here: https://angel-rs.github.io/css-color-filter-generator/ */
+    filter: brightness(0) saturate(100%) invert(99%) sepia(4%) saturate(2%) hue-rotate(280deg) brightness(109%) contrast(76%);
+}
+
+.github:hover {
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+}
+
+.child-left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    float: left;
+    position: relative;
+    flex: 50%;
+    margin-left: 2%;
+}
+
+.child-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    float: right;
+    position: relative;
+    flex: 50%;
+    margin-right: 2%;
+}
+
+@media screen and (max-width:1152px){
+    .github {
+        width: 48px;
+        height: 48px;
+    }
+
+    .navbar {
+        padding-top: 2%;
+        padding-bottom: 2%;
+    }
+}

@@ -1,0 +1,49 @@
+.titlebar-container {
+    width: 100%;
+    display: flexbox;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.title-image {
+    animation: slide-in-anim 1.5s ease-out forwards;
+    height: auto; 
+    width: auto;
+    max-width: 600px; 
+    max-height: 600px;
+    margin: auto;
+    opacity: 0;
+    animation-delay: 500ms;
+    transform: translateX(50%);
+    filter: drop-shadow(0 0 0.35rem #FFFFFF);
+}
+
+.subtext {
+    margin-bottom: 0;
+    margin-top: 0;
+    font-style: italic;
+    font-size: 1.2em;
+    color: #FFFFFF
+}
+  
+@keyframes slide-in-anim {
+    100% {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width:1152px){
+    .title-image {
+        max-width: 400px; 
+        max-height: 400px;
+        transform: translateX(0%);
+    }
+
+    .subtext {
+        font-size: 1em;
+    }
+}

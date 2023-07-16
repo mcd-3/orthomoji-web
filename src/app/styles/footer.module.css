@@ -1,0 +1,73 @@
+.text {
+    color: #FFFFFF
+}
+
+.link:link {
+    color: #2f7bf6;
+}
+
+.link:visited {
+    color: #ab55fb;
+}
+
+.link:active {
+    color: #c282fd;
+}
+
+.link:hover {
+    color: #e7e6e6;
+}
+
+.footer-container {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #404040;
+    border-top: 0.5rem solid #343434;
+    bottom: 0;
+}
+
+.text-left {
+    width: 31%;
+    text-align: start;
+    padding-left: 2%;
+}
+
+.text-center {
+    width: 31%;
+    text-align: center;
+}
+
+.text-right {
+    width: 31%;
+    text-align: end;
+    padding-right: 2%;
+}
+
+
+@media screen and (max-width:1152px){
+    .text {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .text-left {
+        width: 100%;
+        text-align: center;
+        margin-top: 8px;
+    }
+
+    .text-center {
+        width: 100%;
+        text-align: center;
+        margin-top: 4px;
+        margin-bottom: 4px;
+    }
+    
+    .text-right {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 8px;
+    }
+}

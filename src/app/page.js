@@ -1,95 +1,87 @@
-import Image from 'next/image'
+'use client';
+
+import { useEffect, useRef } from "react";
+
 import styles from './page.module.css'
+import btnStyles from './styles/button.module.css';
+import './globals.css';
+
+import NavBar from './components/navbar.js';
+import Footer from './components/footer.js';
+import TitleBar from './components/titlebar.js';
+import ScaleContainer from './components/scaleContainer.js';
+import CanvasMessage from './components/canvasMessage.js';
+import Button from './components/button.js';
+import TextInput from './components/textInput.js';
+import Header from './components/header.js';
+
+import { Orthomoji } from '../../orthomoji/index';
+import EmojiPicker from 'emoji-picker-react';
+
+import paintIcon from './assets/brush.svg';
+import generateIcon from './assets/pen.svg';
+import downloadIcon from './assets/download.svg';
 
 export default function Home() {
+  const Test = () => {
+    const orthomoji = new Orthomoji(); 
+    orthomoji
+      .setText('Sus')
+      .setEmoji('📮')
+      .generate();
+  }
+
+  /**
+   * Saves the content of the canvas as a png image
+   */
+  const download = () => {
+    let canvas = document.getElementById("main-canvas");
+    let url = canvas.toDataURL("image/png");
+    let link = document.createElement('a');
+    link.download = 'orthomoji.png';
+    link.href = url;
+    link.click();
+  }
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className='main'>
+      <div className='content-container'>
+        <NavBar title={"Orthomoji 🖌️"} github={"https://google.com"} />
+        <TitleBar src={""} subtext={"Words made of emoji!"} />
+        <br />
+        <ScaleContainer>
+          <CanvasMessage
+            message={"No words generated"}
+            iconSrc={paintIcon}
+            iconAlt="Paintbrush"
+          />
+        </ScaleContainer>
+        <br />
+        <div className={styles["button-container"]}>
+          <div className={styles["button-column-left"]}>
+            <Button iconSrc={generateIcon} text={"Generate"} className={btnStyles.generate} />
+          </div>
+          <div className={styles["button-column-right"]}>
+            <Button iconSrc={downloadIcon} text={"Download"} className={btnStyles.download} />
+          </div>
         </div>
+        <br />
+        <div className={styles.row}>
+          <Header text={"Customize your Message"}/>
+        </div>
+        <div className={styles.row}>
+          <div className={styles["main-text-input-container"]}>
+            <TextInput label={"Enter text here..."} />
+          </div>
+          <div className={styles["main-emoji-input-container"]}>
+            <TextInput label={"😃❤️🎉..."} />
+          </div>
+        </div>
+        {/* <EmojiPicker /> */}
+        <br />
+        <canvas id="main-canvas" height="170" width="260"></canvas>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      <Footer author={"Matthew Carvalho-Dagenais"} date={"2023"} licenseHref={"https://google.com"} />
     </main>
   )
 }

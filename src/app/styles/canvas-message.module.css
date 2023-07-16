@@ -1,0 +1,46 @@
+.message {
+    width: 100%;
+    height: 100%;
+    background-color: #e8e8e8;
+    position: absolute;
+    top: 0;
+}
+
+.message-text-div {
+    width: 100%;
+    height: 30%;
+    padding-top: 12px;
+}
+
+.message-text {
+    color: #9c9c9c;
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.message-icon-div {
+    width: 100%;
+    height: 70%;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.message-icon {
+    /* Filters generated here: https://angel-rs.github.io/css-color-filter-generator/ */
+    filter: brightness(0) saturate(100%) invert(68%) sepia(0%) saturate(0%) hue-rotate(172deg) brightness(94%) contrast(83%);
+    width: 96px;
+    height: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+@media screen and (max-width:1152px){
+    .message-text {
+        font-size: 1.2rem;
+    }
+
+    .message-icon {
+        width: 64px;
+    }
+}
