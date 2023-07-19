@@ -6,15 +6,11 @@ import { nunito } from './../assets/fonts.js';
 export default function Button({
     text = "",
     iconSrc = "",
-    className = ""
+    className = "",
+    onClick = () => { }
 }) {
-  // TODO: 3 situations here
-  // 1. Icon, no text
-  // 2. Text, no icon
-  // 3. Icon and text
-
   return (
-    <button className={`${styles.button} ${className}`}>
+    <button className={`${styles.button} ${className}`} onClick={onClick}>
       <div className={styles.container}>
         <span className={styles["image-span"]}>
           <Image

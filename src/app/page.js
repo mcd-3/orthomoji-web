@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 import styles from './page.module.css'
 import btnStyles from './styles/button.module.css';
@@ -14,16 +14,25 @@ import CanvasMessage from './components/canvasMessage.js';
 import Button from './components/button.js';
 import TextInput from './components/textInput.js';
 import Header from './components/header.js';
-import EmojiPickerDialog from "./components/emojiPickerDialog";
+import EmojiPickerDialog from './components/emojiPickerDialog';
+import Image from 'next/image';
 
 import { Orthomoji } from '../../orthomoji/index';
 
 import paintIcon from './assets/brush.svg';
 import generateIcon from './assets/pen.svg';
 import downloadIcon from './assets/download.svg';
+import loadingIcon from './assets/loading.svg';
+import errorIcon from './assets/close-circle.svg';
 
 export default function Home() {
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
+
+  const [showCanvasImage, setShowCanvasImage] = useState(true);
+  const [canvasMessage, setCanvasMessage] = useState("No words generated");
+  const [canvasIcon, setCanvasIcon] = useState(paintIcon);
+
+  const [emojiImage, setEmojiImage] = useState("");
 
   const displayEmojiPickerDialog = () => {
     setEmojiPickerVisible(true);
@@ -33,24 +42,45 @@ export default function Home() {
     setEmojiPickerVisible(false);
   }
 
-  const Test = () => {
-    const orthomoji = new Orthomoji(); 
-    orthomoji
-      .setText('Sus')
-      .setEmoji('📮')
-      .generate();
-  }
+  const canvas = <canvas id="main-canvas" className="canvas"></canvas>;
 
   /**
-   * Saves the content of the canvas as a png image
+   * Downloads the content of the canvas as a png image
    */
-  const download = () => {
-    let canvas = document.getElementById("main-canvas");
-    let url = canvas.toDataURL("image/png");
+  const Download = () => {
+    let canvasHTML = document.getElementById("main-canvas");
+    let url = canvasHTML.toDataURL("image/png");
     let link = document.createElement('a');
     link.download = 'orthomoji.png';
     link.href = url;
     link.click();
+  }
+
+  /**
+   * Generate the emoji word to the canvas
+   */
+  const Generate = () => {
+    setShowCanvasImage(true);
+    setCanvasMessage("Generating...");
+    setCanvasIcon(loadingIcon);
+
+    try {
+      const orthomoji = new Orthomoji("main-canvas"); 
+      orthomoji
+        .setText('Hello')
+        .setEmoji('📮')
+        .setEmojiSize(16)
+        .generate();
+
+      let canvasHTML = document.getElementById("main-canvas");
+      let url = canvasHTML.toDataURL("image/png");
+      setShowCanvasImage(false);
+      setEmojiImage(url);
+    } catch (e) {
+      console.log(e);
+      setCanvasMessage("An error has occured");
+      setCanvasIcon(errorIcon);
+    }
   }
 
   return (
@@ -63,19 +93,30 @@ export default function Home() {
         <TitleBar src={""} subtext={"Words made of emoji!"} />
         <br />
         <ScaleContainer>
-          <CanvasMessage
-            message={"No words generated"}
-            iconSrc={paintIcon}
-            iconAlt="Paintbrush"
-          />
+          {showCanvasImage &&
+            <CanvasMessage
+              message={canvasMessage}
+              iconSrc={canvasIcon}
+              iconAlt="No image generated"
+            />
+          }
+
+          {!showCanvasImage &&
+            <div className={styles["canvas-background"]}>
+              <Image
+                src={emojiImage}
+                className={styles["emoji-word"]}
+              />
+            </div>
+          }
         </ScaleContainer>
         <br />
         <div className={styles["button-container"]}>
           <div className={styles["button-column-left"]}>
-            <Button iconSrc={generateIcon} text={"Generate"} className={btnStyles.generate} />
+            <Button iconSrc={generateIcon} text={"Generate"} className={btnStyles.generate} onClick={Generate} />
           </div>
           <div className={styles["button-column-right"]}>
-            <Button iconSrc={downloadIcon} text={"Download"} className={btnStyles.download} />
+            <Button iconSrc={downloadIcon} text={"Download"} className={btnStyles.download} onClick={Download}/>
           </div>
         </div>
         <br />
@@ -88,11 +129,10 @@ export default function Home() {
           </div>
           <div className={styles["main-emoji-input-container"]} onClick={displayEmojiPickerDialog}>
             <TextInput label={"😃❤️🎉..."} />
-            {/* <EmojiPicker /> */}
           </div>
         </div>
         <br />
-        <canvas id="main-canvas" height="170" width="260"></canvas>
+        {canvas}
       </div>
       <Footer author={"Matthew Carvalho-Dagenais"} date={"2023"} licenseHref={"https://google.com"} />
     </main>

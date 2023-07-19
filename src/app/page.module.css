@@ -50,6 +50,20 @@
   width: 22%
 }
 
+.canvas-background {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  background-color: #EEEEEE;
+  overflow-y: auto;
+  overflow-x: auto;
+  display: flex;
+}
+
+.emoji-word {
+  margin: auto;
+}
+
 @media screen and (max-width:1152px){
   .button-container, .row {
     width: 80%;
