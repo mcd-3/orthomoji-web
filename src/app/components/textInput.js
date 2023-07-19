@@ -7,7 +7,7 @@ export default function TextInput({
 }) {
   return (
     <div className={nunito}>
-      <input type="text" placeholder={label} className={styles.input} />
+      <input type="text" placeholder={label} className={styles.input} maxLength={15} />
     </div>
   );
 }

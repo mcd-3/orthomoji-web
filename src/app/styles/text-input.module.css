@@ -12,6 +12,7 @@
     font-size: 16px;
     padding-left: 8px;
     box-sizing: border-box;
+    filter: drop-shadow(0px 5px 0.75rem #424242);
 }
 
 .input:focus {

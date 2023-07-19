@@ -54,4 +54,12 @@
   .button-container, .row {
     width: 80%;
   }
+
+  .main-text-input-container {
+    width: 60%;
+  }
+  
+  .main-emoji-input-container {
+    width: 34%
+  }
 }

@@ -1,7 +1,6 @@
 body {
     margin: 0;
     padding: 0;
-    /* TODO: Change these colours! */
     background: linear-gradient(-45deg, #29b1ff, #503ce7, #be1aff, #ff3e58);
 	background-size: 400% 400%;
 	animation: gradient 20s ease infinite;

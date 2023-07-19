@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import styles from './page.module.css'
 import btnStyles from './styles/button.module.css';
@@ -14,15 +14,25 @@ import CanvasMessage from './components/canvasMessage.js';
 import Button from './components/button.js';
 import TextInput from './components/textInput.js';
 import Header from './components/header.js';
+import EmojiPickerDialog from "./components/emojiPickerDialog";
 
 import { Orthomoji } from '../../orthomoji/index';
-import EmojiPicker from 'emoji-picker-react';
 
 import paintIcon from './assets/brush.svg';
 import generateIcon from './assets/pen.svg';
 import downloadIcon from './assets/download.svg';
 
 export default function Home() {
+  const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
+
+  const displayEmojiPickerDialog = () => {
+    setEmojiPickerVisible(true);
+  }
+
+  const dismissEmojiPickerDialog = () => {
+    setEmojiPickerVisible(false);
+  }
+
   const Test = () => {
     const orthomoji = new Orthomoji(); 
     orthomoji
@@ -45,6 +55,9 @@ export default function Home() {
 
   return (
     <main className='main'>
+      {emojiPickerVisible &&
+        <EmojiPickerDialog onDismiss={dismissEmojiPickerDialog} />
+      }
       <div className='content-container'>
         <NavBar title={"Orthomoji 🖌️"} github={"https://google.com"} />
         <TitleBar src={""} subtext={"Words made of emoji!"} />
@@ -73,11 +86,11 @@ export default function Home() {
           <div className={styles["main-text-input-container"]}>
             <TextInput label={"Enter text here..."} />
           </div>
-          <div className={styles["main-emoji-input-container"]}>
+          <div className={styles["main-emoji-input-container"]} onClick={displayEmojiPickerDialog}>
             <TextInput label={"😃❤️🎉..."} />
+            {/* <EmojiPicker /> */}
           </div>
         </div>
-        {/* <EmojiPicker /> */}
         <br />
         <canvas id="main-canvas" height="170" width="260"></canvas>
       </div>

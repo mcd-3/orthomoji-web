@@ -54,7 +54,7 @@
 
 .image-span {
     display: inline-block;
-    width: 40%;
+    width: 45%;
     text-align: end;
     padding-right: 4px;
     filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(2%) hue-rotate(266deg) brightness(106%) contrast(101%);
@@ -63,9 +63,20 @@
 .text-span {
     display: inline-block;
     text-align: start;
-    width: 60%;
+    width: 55%;
     font-family: inherit;
     font-size: 1rem;
     padding-left: 4px;
     color: #FFFFFF;
+}
+
+/* TODO: Fix these ratios */
+@media screen and (max-width:1152px){
+    .image-span {
+        width: 35%;
+    }
+    
+    .text-span {
+        width: 65%;
+    }
 }
