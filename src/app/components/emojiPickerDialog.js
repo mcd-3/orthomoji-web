@@ -9,20 +9,14 @@ import EmojiPicker from 'emoji-picker-react';
 //    2. onSet: set display to false, set the emoji in the text box
 
 export default function EmojiPickerDialog({
-  onDismiss = () => {}
+  onDismiss = () => {},
+  onEmojiClick = () => {},
 }) {
-  const [selectedEmoji, setSelectedEmoji] = useState("");
-
-  const onClick = (emojiData) => {
-    console.log(emojiData);
-    setSelectedEmoji(emojiData.emoji);
-  }
-
   return (
     <div className={styles["emoji-picker-container"]} onClick={onDismiss}>
       <div className={styles["emoji-picker"]}>
         <EmojiPicker
-          onEmojiClick={onClick}
+          onEmojiClick={onEmojiClick}
           autoFocusSearch={false}
         />
       </div>

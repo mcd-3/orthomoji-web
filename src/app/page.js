@@ -25,12 +25,21 @@ import downloadIcon from './assets/download.svg';
 import loadingIcon from './assets/loading.svg';
 import errorIcon from './assets/close-circle.svg';
 
+const CANVAS_ID = 'main-canvas';
+
 export default function Home() {
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
 
   const [showCanvasImage, setShowCanvasImage] = useState(true);
   const [canvasMessage, setCanvasMessage] = useState("No words generated");
   const [canvasIcon, setCanvasIcon] = useState(paintIcon);
+
+  const [textIsValid, setTextIsValid] = useState(true);
+  const [emojiIsValid, setEmojiIsValid] = useState(true);
+  const [textError, setTextError] = useState("");
+  const [emojiError, setEmojiError] = useState("");
+  const [text, setText] = useState("");
+  const [emoji, setEmoji] = useState("");
 
   const [emojiImage, setEmojiImage] = useState("");
 
@@ -42,19 +51,28 @@ export default function Home() {
     setEmojiPickerVisible(false);
   }
 
-  const canvas = <canvas id="main-canvas" className="canvas"></canvas>;
+  const canvas = <canvas id={CANVAS_ID} className="canvas"></canvas>;
+
+  const onTextChange = () => {
+
+  };
+
+  function onEmojiSelect(emojiData, event) {
+    console.log(emojiData);
+    setEmoji(emojiData.emoji);
+  }
 
   /**
    * Downloads the content of the canvas as a png image
    */
   const Download = () => {
-    let canvasHTML = document.getElementById("main-canvas");
+    let canvasHTML = document.getElementById(CANVAS_ID);
     let url = canvasHTML.toDataURL("image/png");
     let link = document.createElement('a');
     link.download = 'orthomoji.png';
     link.href = url;
     link.click();
-  }
+  };
 
   /**
    * Generate the emoji word to the canvas
@@ -65,14 +83,14 @@ export default function Home() {
     setCanvasIcon(loadingIcon);
 
     try {
-      const orthomoji = new Orthomoji("main-canvas"); 
+      const orthomoji = new Orthomoji(CANVAS_ID); 
       orthomoji
-        .setText('Hello')
-        .setEmoji('📮')
-        .setEmojiSize(16)
+        .setText(text)
+        .setEmoji(emoji)
+        .setEmojiSize(24)
         .generate();
 
-      let canvasHTML = document.getElementById("main-canvas");
+      let canvasHTML = document.getElementById(CANVAS_ID);
       let url = canvasHTML.toDataURL("image/png");
       setShowCanvasImage(false);
       setEmojiImage(url);
@@ -81,12 +99,12 @@ export default function Home() {
       setCanvasMessage("An error has occured");
       setCanvasIcon(errorIcon);
     }
-  }
+  };
 
   return (
     <main className='main'>
       {emojiPickerVisible &&
-        <EmojiPickerDialog onDismiss={dismissEmojiPickerDialog} />
+        <EmojiPickerDialog onEmojiClick={onEmojiSelect} onDismiss={dismissEmojiPickerDialog} />
       }
       <div className='content-container'>
         <NavBar title={"Orthomoji 🖌️"} github={"https://google.com"} />
@@ -125,10 +143,14 @@ export default function Home() {
         </div>
         <div className={styles.row}>
           <div className={styles["main-text-input-container"]}>
-            <TextInput label={"Enter text here..."} />
+            <TextInput
+              label={"Enter text here..."}
+              setTextState={setText}
+              maxLength={20}
+            />
           </div>
           <div className={styles["main-emoji-input-container"]} onClick={displayEmojiPickerDialog}>
-            <TextInput label={"😃❤️🎉..."} />
+            <TextInput label={"😃❤️🎉..."} setTextState={setEmoji}/>
           </div>
         </div>
         <br />
