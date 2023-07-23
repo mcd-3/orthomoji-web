@@ -107,7 +107,7 @@ export default function Home() {
         <EmojiPickerDialog onEmojiClick={onEmojiSelect} onDismiss={dismissEmojiPickerDialog} />
       }
       <div className='content-container'>
-        <NavBar title={"Orthomoji 🖌️"} github={"https://google.com"} />
+        <NavBar title={"Orthomoji 🖌️"} github={"https://github.com/mcd-3/orthomoji-web"} />
         <TitleBar src={""} subtext={"Words made of emoji!"} />
         <br />
         <ScaleContainer>
