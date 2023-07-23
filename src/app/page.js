@@ -146,7 +146,6 @@ export default function Home() {
             <TextInput
               label={"Enter text here..."}
               setTextState={setText}
-              maxLength={20}
             />
           </div>
           <div className={styles["main-emoji-input-container"]} onClick={displayEmojiPickerDialog}>
@@ -156,7 +155,7 @@ export default function Home() {
         <br />
         {canvas}
       </div>
-      <Footer author={"Matthew Carvalho-Dagenais"} date={"2023"} licenseHref={"https://google.com"} />
+      <Footer author={"Matthew Carvalho-Dagenais"} date={"2023"} licenseHref={"https://github.com/mcd-3/orthomoji-web/blob/main/LICENSE.md"} />
     </main>
   )
 }
