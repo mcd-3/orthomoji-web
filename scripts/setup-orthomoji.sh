@@ -4,7 +4,7 @@
 pwd_output=$(pwd)
 echo $pwd_output
 
-if [[ $pwd_output != *orthomoji-webapp/scripts ]]; then
+if [[ $pwd_output != *orthomoji-web/scripts ]]; then
     echo "This script must be executed from the /scripts directory. Exiting..."
     exit 0
 fi
