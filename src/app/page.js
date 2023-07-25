@@ -44,11 +44,18 @@ export default function Home() {
   const [generateActive, setGenerateActive] = useState(true);
   const [downloadActive, setDownloadActive] = useState(false);
 
-  // TODO: Rename this
-  const [emojiImage, setEmojiImage] = useState("");
+  const [textArt, setTextArt] = useState("");
 
   const wait = (ms) => {
     return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  const getImageName = (text) => {
+    const sanitizedText = text
+      .trim()
+      .toLowerCase()
+      .replace(/ /g, "_");
+    return `orthomoji_${sanitizedText}.png`;
   }
 
   const createCanvasMessage = (message, icon) => {
@@ -153,7 +160,7 @@ export default function Home() {
     let canvasHTML = document.getElementById(CANVAS_ID);
     let url = canvasHTML.toDataURL("image/png");
     let link = document.createElement('a');
-    link.download = 'orthomoji.png';
+    link.download = getImageName(text);
     link.href = url;
     link.click();
   };
@@ -187,7 +194,7 @@ export default function Home() {
         let canvasHTML = document.getElementById(CANVAS_ID);
         let url = canvasHTML.toDataURL("image/png");
         setShowCanvasImage(false);
-        setEmojiImage(url);
+        setTextArt(url);
         setDownloadActive(true);
         setGenerateActive(true);
       });
@@ -219,7 +226,7 @@ export default function Home() {
           {!showCanvasImage &&
             <div className={styles["canvas-background"]}>
               <Image
-                src={emojiImage}
+                src={textArt}
                 className={styles["emoji-word"]}
               />
             </div>
