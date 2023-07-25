@@ -36,7 +36,7 @@ export default function Home() {
 
   const [textIsValid, setTextIsValid] = useState(true);
   const [emojiIsValid, setEmojiIsValid] = useState(true);
-  const [textError, setTextError] = useState("");
+  const [textError, setTextError] = useState("Text must not be empty");
   const [emojiError, setEmojiError] = useState("");
   const [text, setText] = useState("");
   const [emoji, setEmoji] = useState("");
@@ -53,13 +53,52 @@ export default function Home() {
 
   const canvas = <canvas id={CANVAS_ID} className="canvas"></canvas>;
 
-  const onTextChange = () => {
+  const validateText = (text) => {
+    const supportedCharsRegex = /[^a-z0-9 ,.?!:'"\n]/ig;
 
+    if (text.length > 30) {
+      setTextError("Text must be 30 characters or less");
+      setTextIsValid(false);
+      return false;
+    }
+
+    if (text.trim() == "") {
+      setTextError("Text must not be empty");
+      setTextIsValid(false);
+      return false;
+    }
+
+    if (supportedCharsRegex.test(text.toLowerCase())) {
+      setTextError("Text must only contain alpha-numeric characters and/or ,.?!:'\" ");
+      setTextIsValid(false);
+      return false;
+    }
+
+    setTextError("");
+    setTextIsValid(true);
+    return true;
+  }
+
+  const validateEmoji = (emoji) => {
+    if (emoji.trim() == "") {
+      setEmojiError("You must pick an emoji");
+      setEmojiIsValid(false);
+      return false;
+    }
+
+    setEmojiError("");
+    setEmojiIsValid(true);
+    return true;
+  }
+
+  const onTextChange = (event) => {
+    const text = event.target.value;
+    validateText(text);
   };
 
-  function onEmojiSelect(emojiData, event) {
-    console.log(emojiData);
+  const onEmojiSelect = (emojiData, event) => {
     setEmoji(emojiData.emoji);
+    validateEmoji(emojiData.emoji);
   }
 
   /**
@@ -78,11 +117,13 @@ export default function Home() {
    * Generate the emoji word to the canvas
    */
   const Generate = () => {
-    // setTextError("ERROR!");
-    // setEmojiError("No");
-    // setTextIsValid(!textIsValid);
-    // setEmojiIsValid(!emojiIsValid);
-    // return false;
+    // Validate Text + Emoji
+    const isTextValid = validateText(text);
+    const isEmojiValid = validateEmoji(emoji);
+
+    if (!isTextValid || !isEmojiValid) {
+      return false;
+    }
 
     setShowCanvasImage(true);
     setCanvasMessage("Generating...");
@@ -153,8 +194,10 @@ export default function Home() {
               label={"Enter text here..."}
               setTextState={setText}
               value={text}
-              error={"Bruh, you suck or something?"}
+              error={textError}
               showError={!textIsValid}
+              onChange={onTextChange}
+              maxLength={999}
             />
           </div>
           <div className={styles["main-emoji-input-container"]} onClick={displayEmojiPickerDialog}>
@@ -163,7 +206,7 @@ export default function Home() {
               setTextState={setEmoji}
               readOnly={true}
               value={emoji}
-              error={"Bruh, you suck or something?"}
+              error={emojiError}
               showError={!emojiIsValid}
             />
           </div>
