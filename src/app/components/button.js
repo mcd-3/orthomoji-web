@@ -7,10 +7,17 @@ export default function Button({
     text = "",
     iconSrc = "",
     className = "",
+    disabled = false,
     onClick = () => { }
 }) {
+  const btnStyle = disabled ? styles.disabled : className;
+
   return (
-    <button className={`${styles.button} ${className}`} onClick={onClick}>
+    <button 
+      className={`${styles.button} ${btnStyle}`}
+      onClick={onClick}
+      disabled={disabled}
+    >
       <div className={styles.container}>
         <span className={styles["image-span"]}>
           <Image

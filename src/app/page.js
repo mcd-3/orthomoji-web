@@ -41,6 +41,9 @@ export default function Home() {
   const [text, setText] = useState("");
   const [emoji, setEmoji] = useState("");
 
+  const [downloadActive, setDownloadActive] = useState(false);
+
+  // TODO: Rename this
   const [emojiImage, setEmojiImage] = useState("");
 
   const displayEmojiPickerDialog = () => {
@@ -141,8 +144,10 @@ export default function Home() {
       let url = canvasHTML.toDataURL("image/png");
       setShowCanvasImage(false);
       setEmojiImage(url);
+      setDownloadActive(true);
     } catch (e) {
       console.log(e);
+      setDownloadActive(false);
       setCanvasMessage("An error has occured");
       setCanvasIcon(errorIcon);
     }
@@ -181,7 +186,13 @@ export default function Home() {
             <Button iconSrc={generateIcon} text={"Generate"} className={btnStyles.generate} onClick={Generate} />
           </div>
           <div className={styles["button-column-right"]}>
-            <Button iconSrc={downloadIcon} text={"Download"} className={btnStyles.download} onClick={Download}/>
+            <Button
+              iconSrc={downloadIcon}
+              text={"Download"}
+              className={btnStyles.download}
+              onClick={Download}
+              disabled={!downloadActive}
+            />
           </div>
         </div>
         <br />
