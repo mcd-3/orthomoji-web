@@ -41,10 +41,15 @@ export default function Home() {
   const [text, setText] = useState("");
   const [emoji, setEmoji] = useState("");
 
+  const [generateActive, setGenerateActive] = useState(true);
   const [downloadActive, setDownloadActive] = useState(false);
 
   // TODO: Rename this
   const [emojiImage, setEmojiImage] = useState("");
+
+  const wait = (ms) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
   const displayEmojiPickerDialog = () => {
     setEmojiPickerVisible(true);
@@ -140,11 +145,16 @@ export default function Home() {
         .setEmojiSize(24)
         .generate();
 
-      let canvasHTML = document.getElementById(CANVAS_ID);
-      let url = canvasHTML.toDataURL("image/png");
-      setShowCanvasImage(false);
-      setEmojiImage(url);
-      setDownloadActive(true);
+      // Simulate loading since generation is instant
+      setGenerateActive(false);
+      wait(3000).then(() => {
+        let canvasHTML = document.getElementById(CANVAS_ID);
+        let url = canvasHTML.toDataURL("image/png");
+        setShowCanvasImage(false);
+        setEmojiImage(url);
+        setDownloadActive(true);
+        setGenerateActive(true);
+      });
     } catch (e) {
       console.log(e);
       setDownloadActive(false);
@@ -183,7 +193,13 @@ export default function Home() {
         <br />
         <div className={styles["button-container"]}>
           <div className={styles["button-column-left"]}>
-            <Button iconSrc={generateIcon} text={"Generate"} className={btnStyles.generate} onClick={Generate} />
+            <Button
+              iconSrc={generateIcon}
+              text={"Generate"}
+              className={btnStyles.generate}
+              onClick={Generate}
+              disabled={!generateActive}
+            />
           </div>
           <div className={styles["button-column-right"]}>
             <Button
