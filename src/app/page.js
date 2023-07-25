@@ -46,10 +46,24 @@ export default function Home() {
 
   const [textArt, setTextArt] = useState("");
 
+  const canvas = <canvas id={CANVAS_ID} className="canvas"></canvas>;
+
+  /**
+   * Pauses execution for a set amount of time
+   * 
+   * @param {number} ms - Amount of time in milliseconds to pause for
+   * @returns {Promise}
+   */
   const wait = (ms) => {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
+  /**
+   * Generates a name for the downloaded canvas image file
+   * 
+   * @param {string} text - Text to add to image name
+   * @returns {string} Filename
+   */
   const getImageName = (text) => {
     const sanitizedText = text
       .trim()
@@ -58,6 +72,13 @@ export default function Home() {
     return `orthomoji_${sanitizedText}.png`;
   }
 
+  /**
+   * Sets a message and icon to the canvas
+   * Does not display the message; the error will need to be displayed separately
+   * 
+   * @param {string} message - Message to display
+   * @param {SVG} icon - SVG icon to display
+   */
   const createCanvasMessage = (message, icon) => {
     setCanvasMessage(message);
     switch (icon) {
@@ -74,14 +95,29 @@ export default function Home() {
     }
   }
 
+  /**
+   * Displays the emoji picker dialog
+   */
   const displayEmojiPickerDialog = () => {
     setEmojiPickerVisible(true);
   }
 
+  /**
+   * Dismisses the emoji picker dialog
+   */
   const dismissEmojiPickerDialog = () => {
     setEmojiPickerVisible(false);
   }
 
+  /**
+   * Sets an error for an input
+   * Does not display the error; the error will need to be displayed separately
+   * 
+   * @param {string} message - Error message to display
+   * @param {boolean} isValid - Flag to show error message
+   * @param {string} type - Type of input. Can be either 'text' or 'emoji'
+   * @returns {boolean} isValid
+   */
   const showErrorInput = (message, isValid, type) => {
     if (type !== "text" && type !== "emoji") {
       throw new Error(`${type} is not valid. Use 'text' or 'emoji'`);
@@ -98,8 +134,12 @@ export default function Home() {
     return isValid;
   }
 
-  const canvas = <canvas id={CANVAS_ID} className="canvas"></canvas>;
-
+  /**
+   * Validate text for text art generation
+   * 
+   * @param {string} text - Text to validate
+   * @returns {boolean} True if valid, false if not
+   */
   const validateText = (text) => {
     const supportedCharsRegex = /[^a-z0-9 ,.?!:'"\n]/ig;
     const typeText = "text";
@@ -131,6 +171,12 @@ export default function Home() {
     return showErrorInput("", true, typeText);
   }
 
+  /**
+   * Validate emoji character(s) for text art generation
+   * 
+   * @param {string} text - Emoji character(s) to validate
+   * @returns {boolean} True if valid, false if not
+   */
   const validateEmoji = (emoji) => {
     if (emoji.trim() == "") {
       setEmojiError("You must pick an emoji");
