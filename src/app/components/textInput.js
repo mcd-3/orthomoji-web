@@ -7,6 +7,8 @@ export default function TextInput({
   setTextState,
   maxLength = 15,
   isDisabled = false,
+  value = "",
+  readOnly = false,
   onChange = () => {},
 }) {
   return (
@@ -19,6 +21,8 @@ export default function TextInput({
         onChange={onChange}
         onInput={e => setTextState(e.target.value)}
         disabled={(isDisabled)? "disabled" : ""}
+        readOnly={readOnly}
+        value={value}
       />
     </div>
   );

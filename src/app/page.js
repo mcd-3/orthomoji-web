@@ -146,10 +146,16 @@ export default function Home() {
             <TextInput
               label={"Enter text here..."}
               setTextState={setText}
+              value={text}
             />
           </div>
           <div className={styles["main-emoji-input-container"]} onClick={displayEmojiPickerDialog}>
-            <TextInput label={"😃❤️🎉..."} setTextState={setEmoji}/>
+            <TextInput
+              label={"😃❤️🎉..."}
+              setTextState={setEmoji}
+              readOnly={true}
+              value={emoji}
+            />
           </div>
         </div>
         <br />
