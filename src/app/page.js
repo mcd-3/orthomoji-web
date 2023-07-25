@@ -68,7 +68,7 @@ export default function Home() {
     const sanitizedText = text
       .trim()
       .toLowerCase()
-      .replace(/ /g, "_");
+      .replace(/[\W_]+/g, "");
     return `orthomoji_${sanitizedText}.png`;
   }
 
@@ -202,7 +202,7 @@ export default function Home() {
   /**
    * Downloads the content of the canvas as a png image
    */
-  const Download = () => {
+  const downloadTextArt = () => {
     let canvasHTML = document.getElementById(CANVAS_ID);
     let url = canvasHTML.toDataURL("image/png");
     let link = document.createElement('a');
@@ -214,7 +214,7 @@ export default function Home() {
   /**
    * Generate the emoji word to the canvas
    */
-  const Generate = () => {
+  const generateTextArt = () => {
     // Validate Text + Emoji
     const isTextValid = validateText(text);
     const isEmojiValid = validateEmoji(emoji);
@@ -285,7 +285,7 @@ export default function Home() {
               iconSrc={generateIcon}
               text={"Generate"}
               className={btnStyles.generate}
-              onClick={Generate}
+              onClick={generateTextArt}
               disabled={!generateActive}
             />
           </div>
@@ -294,7 +294,7 @@ export default function Home() {
               iconSrc={downloadIcon}
               text={"Download"}
               className={btnStyles.download}
-              onClick={Download}
+              onClick={downloadTextArt}
               disabled={!downloadActive}
             />
           </div>
