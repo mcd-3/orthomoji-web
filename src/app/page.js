@@ -51,6 +51,22 @@ export default function Home() {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
+  const createCanvasMessage = (message, icon) => {
+    setCanvasMessage(message);
+    switch (icon) {
+      case "paint":
+        setCanvasIcon(paintIcon);
+        break;
+      case "loading":
+        setCanvasIcon(loadingIcon);
+        break;
+      case "error":
+      default:
+        setCanvasIcon(errorIcon);
+        break;
+    }
+  }
+
   const displayEmojiPickerDialog = () => {
     setEmojiPickerVisible(true);
   }
@@ -59,32 +75,53 @@ export default function Home() {
     setEmojiPickerVisible(false);
   }
 
+  const showErrorInput = (message, isValid, type) => {
+    if (type !== "text" && type !== "emoji") {
+      throw new Error(`${type} is not valid. Use 'text' or 'emoji'`);
+    }
+
+    if (type === "text") {
+      setTextError(message);
+      setTextIsValid(isValid);
+    } else if (type === "emoji") {
+      setEmojiError(message);
+      setEmojiIsValid(isValid);
+    }
+
+    return isValid;
+  }
+
   const canvas = <canvas id={CANVAS_ID} className="canvas"></canvas>;
 
   const validateText = (text) => {
     const supportedCharsRegex = /[^a-z0-9 ,.?!:'"\n]/ig;
+    const typeText = "text";
 
     if (text.length > 30) {
-      setTextError("Text must be 30 characters or less");
-      setTextIsValid(false);
-      return false;
+      return showErrorInput(
+        "Text must be 30 characters or less",
+        false,
+        typeText
+      );
     }
 
     if (text.trim() == "") {
-      setTextError("Text must not be empty");
-      setTextIsValid(false);
-      return false;
+      return showErrorInput(
+        "Text must not be empty",
+        false,
+        typeText
+      );
     }
 
     if (supportedCharsRegex.test(text.toLowerCase())) {
-      setTextError("Text must only contain alpha-numeric characters and/or ,.?!:'\" ");
-      setTextIsValid(false);
-      return false;
+      return showErrorInput(
+        "Text must only contain alpha-numeric characters and/or ,.?!:'\" ",
+        false,
+        typeText
+      );
     }
 
-    setTextError("");
-    setTextIsValid(true);
-    return true;
+    return showErrorInput("", true, typeText);
   }
 
   const validateEmoji = (emoji) => {
@@ -134,8 +171,7 @@ export default function Home() {
     }
 
     setShowCanvasImage(true);
-    setCanvasMessage("Generating...");
-    setCanvasIcon(loadingIcon);
+    createCanvasMessage("Generating...", "loading");
 
     try {
       const orthomoji = new Orthomoji(CANVAS_ID); 
@@ -158,8 +194,7 @@ export default function Home() {
     } catch (e) {
       console.log(e);
       setDownloadActive(false);
-      setCanvasMessage("An error has occured");
-      setCanvasIcon(errorIcon);
+      createCanvasMessage("An error has occured", "error");
     }
   };
 
