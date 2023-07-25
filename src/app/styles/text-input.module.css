@@ -27,3 +27,35 @@
     font-style: italic;
     color: #ababab;
 }
+
+
+.input-error {
+    font-family: inherit;
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;
+    border: 2px solid #d60000;
+    color: #ce0000;
+    font-size: 16px;
+    padding-left: 8px;
+    box-sizing: border-box;
+    filter: drop-shadow(0px 5px 0.75rem #ab0000);
+}
+
+.input-error:focus {
+    outline: none !important;
+    border: 2px solid #d60000;
+    box-shadow: 0 0 10px #ce7171;
+}
+
+.input-error::placeholder {
+    font-family: inherit;
+    font-size: 16px;
+    font-style: italic;
+    color: #ffa4a4;
+}
+
+.error {
+    color: rgb(255, 158, 158);
+    text-align: center;
+}

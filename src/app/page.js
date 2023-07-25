@@ -78,6 +78,12 @@ export default function Home() {
    * Generate the emoji word to the canvas
    */
   const Generate = () => {
+    // setTextError("ERROR!");
+    // setEmojiError("No");
+    // setTextIsValid(!textIsValid);
+    // setEmojiIsValid(!emojiIsValid);
+    // return false;
+
     setShowCanvasImage(true);
     setCanvasMessage("Generating...");
     setCanvasIcon(loadingIcon);
@@ -147,6 +153,8 @@ export default function Home() {
               label={"Enter text here..."}
               setTextState={setText}
               value={text}
+              error={"Bruh, you suck or something?"}
+              showError={!textIsValid}
             />
           </div>
           <div className={styles["main-emoji-input-container"]} onClick={displayEmojiPickerDialog}>
@@ -155,6 +163,8 @@ export default function Home() {
               setTextState={setEmoji}
               readOnly={true}
               value={emoji}
+              error={"Bruh, you suck or something?"}
+              showError={!emojiIsValid}
             />
           </div>
         </div>

@@ -8,7 +8,9 @@ export default function TextInput({
   maxLength = 15,
   isDisabled = false,
   value = "",
+  error = "",
   readOnly = false,
+  showError = false,
   onChange = () => {},
 }) {
   return (
@@ -16,7 +18,7 @@ export default function TextInput({
       <input
         type="text"
         placeholder={label}
-        className={styles.input}
+        className={showError ? styles["input-error"] : styles.input}
         maxLength={maxLength}
         onChange={onChange}
         onInput={e => setTextState(e.target.value)}
@@ -24,6 +26,9 @@ export default function TextInput({
         readOnly={readOnly}
         value={value}
       />
+      {showError && 
+        <p className={styles.error}>{error}</p>
+      }
     </div>
   );
 }
