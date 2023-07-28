@@ -79,10 +79,10 @@
 /* TODO: Fix these ratios */
 @media screen and (max-width:1152px){
     .image-span {
-        width: 35%;
+        width: 40%;
     }
     
     .text-span {
-        width: 65%;
+        width: 60%;
     }
 }

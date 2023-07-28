@@ -26,14 +26,14 @@
 }
 
 .button-column-left {
-  display: flex;
-  justify-content: start;
+  text-align: left; 
+  display: block;
   width: 50%;
 }
 
 .button-column-right {
-  display: flex;
-  justify-content: end;
+  text-align: right; 
+  display: block;
   width: 50%;
 }
 
