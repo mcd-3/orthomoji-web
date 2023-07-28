@@ -1,4 +1,6 @@
 # Orthomoji
+Available as a GitHub Page: [visit me here!](https://mcd-3.github.io/orthomoji-web/)
+
 A frontend web interface for [orthomoji-dom](https://github.com/mcd-3/orthomoji-dom)
 
 Built with React and NextJS
