@@ -1,34 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Orthomoji
+A frontend web interface for [orthomoji-dom](https://github.com/mcd-3/orthomoji-dom)
 
-## Getting Started
+Built with React and NextJS
 
-First, run the development server:
+# Building
+You can chose to build the app with either NodeJS, Docker, or with Docker Compose
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+## Node
+To build the app locally, perform the following:
+```sh
+    # Install Dependencies
+    npm i
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```sh
+    # Start the App
+    npm run build
+    npm run start
+```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+You may also try `npm run dev` instead of `build` and `start`, but it is not as stable as building and starting.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Docker
+To start your image, perform the following:
+```sh
+    # Build the image
+    docker build -t <tag-name> .
 
-## Learn More
+    # Start the image
+    docker run -dp 3000:3000 <tag-name>
+```
+After this, go to [localhost:3000](localhost:3000) and your app should be hosted there!
 
-To learn more about Next.js, take a look at the following resources:
+To stop your container, perform the following:
+```sh
+    # Get the image name
+    docker container ls
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    # After copying the CONTAINER ID from the above
+    docker rm -f <container-id>
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Note: if you used `docker-compose` to start your container, you will need to stop it otherwise you will get a port conflict.
 
-## Deploy on Vercel
+## Docker Compose
+Alternatively, you can use Docker Compose to build your Docker images
+```sh
+    # Start & build container
+    docker-compose up -d 
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    # Stop container
+    docker-compose down
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Note: if you used `docker` to start your container, you will need to stop it otherwise you will get a port conflict.
