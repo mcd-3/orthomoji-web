@@ -236,7 +236,7 @@ export default function Home() {
 
       // Simulate loading since generation is instant
       setGenerateActive(false);
-      wait(3000).then(() => {
+      wait(2500).then(() => {
         let canvasHTML = document.getElementById(CANVAS_ID);
         let url = canvasHTML.toDataURL("image/png");
         setShowCanvasImage(false);
