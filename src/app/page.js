@@ -17,7 +17,7 @@ import Header from './components/header.js';
 import EmojiPickerDialog from './components/emojiPickerDialog';
 import Image from 'next/image';
 
-import { Orthomoji } from '../../orthomoji/index';
+import { Orthomoji } from 'orthomoji-dom';
 
 import paintIcon from './assets/brush.svg';
 import generateIcon from './assets/pen.svg';
