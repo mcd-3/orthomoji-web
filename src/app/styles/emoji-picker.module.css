@@ -21,3 +21,13 @@
     min-height: 100vh;
     z-index: 100;
 }
+
+@media screen and (max-width:500px){
+    .emoji-picker {
+        max-height: 60vh;
+        max-width: 90%;
+        margin: auto;
+        align-items: center;
+        text-align: center;
+    }
+}
