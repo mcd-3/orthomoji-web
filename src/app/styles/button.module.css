@@ -86,3 +86,14 @@
         width: 60%;
     }
 }
+
+@media screen and (max-width:500px){
+    .image-span {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .text-span {
+        display: none;
+    }
+}
