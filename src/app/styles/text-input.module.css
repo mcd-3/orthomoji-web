@@ -25,7 +25,9 @@
     font-family: inherit;
     font-size: 16px;
     font-style: italic;
-    color: #ababab;
+    overflow: visible;
+    color: #6e6e6e;
+    opacity: 40%;
 }
 
 
