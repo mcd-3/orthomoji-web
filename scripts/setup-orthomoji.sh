@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# NOTE: This script is OUTDATED!
+#       This was a script used for testing when orthomoji-dom was not yet completed.
+#       It is NOT recommended to use this script anymore as it might not work anymore.
+#       Use at your own risk.
+
 # Check if script is being executed from the scripts directory
 pwd_output=$(pwd)
 echo $pwd_output
