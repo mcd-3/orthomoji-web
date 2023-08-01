@@ -4,8 +4,8 @@
     padding-bottom: 0.5%;
     display: flex;
     justify-content: space-around;
-    background-color: rgb(35, 130, 255);
-    border-bottom: 0.3rem solid #334896;
+    /* background-color: rgb(132, 143, 199, 0.0);
+    border-bottom: 0.3rem solid #4a567e00; */
 }
 
 .title {
@@ -16,8 +16,9 @@
 
 .github {
     margin: 0;
-    width: 64px;
-    height: 64px;
+    width: 62px;
+    height: 62px;
+    padding-top: 2px;
     float: right;
     display: flex;
     justify-content: flex-end;
