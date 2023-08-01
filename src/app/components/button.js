@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import styles from './../styles/button.module.css';
+import styles from './../styles/components/button.module.css';
 
 import { nunito } from './../assets/fonts.js';
 

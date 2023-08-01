@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 
-import styles from './page.module.css'
-import btnStyles from './styles/button.module.css';
+import styles from './styles/pages/page.module.css'
+import btnStyles from './styles/components/button.module.css';
 import './globals.css';
 
 import NavBar from './components/navbar.js';

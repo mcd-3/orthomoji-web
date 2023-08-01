@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import styles from './../styles/canvas-message.module.css';
+import styles from './../styles/components/canvas-message.module.css';
 
 /**
  * Text message with an icon to display on a canvas

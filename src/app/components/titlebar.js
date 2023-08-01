@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import styles from './../styles/titlebar.module.css';
+import styles from './../styles/components/titlebar.module.css';
 import orthomoji_title from '/public/orthomoji_title.png';
 
 /**

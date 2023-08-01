@@ -1,4 +1,4 @@
-import styles from './../styles/text-input.module.css';
+import styles from './../styles/components/text-input.module.css';
 import { nunito } from './../assets/fonts.js';
 
 /**

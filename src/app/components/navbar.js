@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { dancingScript } from '../assets/fonts.js';
-import styles from './../styles/navbar.module.css';
+import styles from './../styles/components/navbar.module.css';
 import githubLogo from '../assets/github-mark.svg';
 
 /**

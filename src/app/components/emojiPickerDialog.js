@@ -1,4 +1,4 @@
-import styles from './../styles/emoji-picker.module.css';
+import styles from './../styles/components/emoji-picker.module.css';
 import EmojiPicker from 'emoji-picker-react';
 
 /**

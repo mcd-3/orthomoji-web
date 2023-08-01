@@ -1,4 +1,4 @@
-import styles from './../styles/footer.module.css';
+import styles from './../styles/components/footer.module.css';
 
 /**
  * Footer. Displayed at bottom of webapp at all times

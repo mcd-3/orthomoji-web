@@ -1,4 +1,4 @@
-import styles from './../styles/scale-container.module.css';
+import styles from './../styles/components/scale-container.module.css';
 
 /**
  * Container that scales children to fit within
