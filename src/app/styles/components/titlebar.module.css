@@ -18,7 +18,7 @@
     opacity: 0;
     animation-delay: 500ms;
     transform: translateX(50%);
-    filter: drop-shadow(0 0 0.35rem #FFFFFF);
+    filter: drop-shadow(0 0 0.15rem #FFFFFF);
 }
 
 .subtext {
