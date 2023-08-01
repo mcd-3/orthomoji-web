@@ -197,6 +197,7 @@ export default function Home() {
   const onEmojiSelect = (emojiData, event) => {
     setEmoji(emojiData.emoji);
     validateEmoji(emojiData.emoji);
+    dismissEmojiPickerDialog();
   }
 
   /**

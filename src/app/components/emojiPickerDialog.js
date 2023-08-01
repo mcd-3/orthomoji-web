@@ -1,7 +1,5 @@
-import { useState } from "react";
-
+import { useRef } from "react"
 import styles from './../styles/emoji-picker.module.css';
-
 import EmojiPicker from 'emoji-picker-react';
 
 // TODO: need some functions
@@ -12,13 +10,20 @@ export default function EmojiPickerDialog({
   onDismiss = () => {},
   onEmojiClick = () => {},
 }) {
+  const noClick = (event) => {
+    event.stopPropagation();
+    console.log("Hello World!");
+  };
+
   return (
     <div className={styles["emoji-picker-container"]} onClick={onDismiss}>
       <div className={styles["emoji-picker"]}>
-        <EmojiPicker
-          onEmojiClick={onEmojiClick}
-          autoFocusSearch={false}
-        />
+        <div className={styles["emoji-dialog"]} onClick={noClick}>
+          <EmojiPicker
+            onEmojiClick={onEmojiClick}
+            autoFocusSearch={false}
+          />
+        </div>
       </div>
     </div>
   );
