@@ -4,9 +4,8 @@
     padding-bottom: 0.5%;
     display: flex;
     justify-content: space-around;
-    /* TODO: Change this colour! */
-    background-color: grey;
-    border-bottom: 0.3rem solid #5a5a5a;
+    background-color: rgb(35, 130, 255);
+    border-bottom: 0.3rem solid #334896;
 }
 
 .title {
