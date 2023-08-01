@@ -4,6 +4,12 @@ import { dancingScript } from '../assets/fonts.js';
 import styles from './../styles/navbar.module.css';
 import githubLogo from '../assets/github-mark.svg';
 
+/**
+ * Webapp NavBar. Displayed at all times at the top
+ *
+ * @param {string} title - Webapp title
+ * @param {string} github - Link to GitHub repository
+ */
 export default function NavBar({
   title,
   github,

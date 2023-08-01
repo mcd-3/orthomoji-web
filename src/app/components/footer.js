@@ -1,5 +1,12 @@
 import styles from './../styles/footer.module.css';
 
+/**
+ * Footer. Displayed at bottom of webapp at all times
+ *
+ * @param {string} licenseHref - Link to MIT license
+ * @param {string} author - Author of webapp
+ * @param {string} date - Date created
+ */
 export default function Footer({
   licenseHref,
   author,

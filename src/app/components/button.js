@@ -3,6 +3,15 @@ import styles from './../styles/button.module.css';
 
 import { nunito } from './../assets/fonts.js';
 
+/**
+ * Stylised custom button
+ *
+ * @param {string} text - Text to display on the button
+ * @param {string} iconSrc - Button icon to display
+ * @param {string} className - Name of the class
+ * @param {boolean} disabled - Diable flag. True to disable, false to enable
+ * @param {callback} onClick - Function to call when the button is clicked
+ */
 export default function Button({
     text = "",
     iconSrc = "",

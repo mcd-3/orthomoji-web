@@ -1,5 +1,10 @@
 import styles from './../styles/scale-container.module.css';
 
+/**
+ * Container that scales children to fit within
+ *
+ * @param {*} children - HTML elements
+ */
 export default function ScaleContainer({
   children
 }) {

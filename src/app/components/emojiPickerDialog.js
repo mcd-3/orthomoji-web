@@ -1,11 +1,12 @@
-import { useRef } from "react"
 import styles from './../styles/emoji-picker.module.css';
 import EmojiPicker from 'emoji-picker-react';
 
-// TODO: need some functions
-//    1. onDismiss: set display to false, do nothing with emoji
-//    2. onSet: set display to false, set the emoji in the text box
-
+/**
+ * Emoji picker dialog
+ *
+ * @param {callback} onDismiss - Function to be called when dialog is dismissed
+ * @param {callback} onEmojiClick - Function to be called when an emoji is selected
+ */
 export default function EmojiPickerDialog({
   onDismiss = () => {},
   onEmojiClick = () => {},

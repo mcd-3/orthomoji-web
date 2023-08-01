@@ -1,6 +1,13 @@
 import Image from 'next/image';
 import styles from './../styles/canvas-message.module.css';
 
+/**
+ * Text message with an icon to display on a canvas
+ *
+ * @param {string} message - Message to display
+ * @param {string} iconSrc - Icon to display
+ * @param {string} iconAlt - Alt text for the icon
+ */
 export default function CanvasMessage({
   message,
   iconSrc,

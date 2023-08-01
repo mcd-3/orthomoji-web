@@ -1,7 +1,19 @@
 import styles from './../styles/text-input.module.css';
-import { useState } from 'react';
 import { nunito } from './../assets/fonts.js';
 
+/**
+ * Highly customised input
+ *
+ * @param {string} label - Placeholder label
+ * @param {state} setTextState - Function to set value state
+ * @param {number} maxLength - Max amount of characters that can be enetered into the input
+ * @param {boolean} isDisabled - Disabled flag. True to disable, false to enable
+ * @param {string} value - Value of the input
+ * @param {string} error - Error text. Needs "showError" to be true to show this text
+ * @param {boolean} readOnly - True if readonly, false if value can be modified
+ * @param {boolean} showError - Shows error text
+ * @param {callback} onChange - Function to be called when the value is changed
+ */
 export default function TextInput({
   label,
   setTextState,

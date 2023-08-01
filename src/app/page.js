@@ -189,11 +189,22 @@ export default function Home() {
     return true;
   }
 
+  /**
+   * Sets and validates text
+   *
+   * @param {*} event - Input event
+   */
   const onTextChange = (event) => {
     const text = event.target.value;
     validateText(text);
   };
 
+  /**
+   * Sets and validates emoji
+   *
+   * @param {object} emojiData - Object containing emoji data
+   * @param {*} event - Input event
+   */
   const onEmojiSelect = (emojiData, event) => {
     setEmoji(emojiData.emoji);
     validateEmoji(emojiData.emoji);
