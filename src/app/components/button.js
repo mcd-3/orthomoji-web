@@ -27,15 +27,17 @@ export default function Button({
       onClick={onClick}
       disabled={disabled}
     >
-      <div className={styles.container}>
-        <span className={styles["image-span"]}>
-          <Image
-            src={iconSrc}
-            width={32}
-            height={32}
-          />
-        </span>
-        <span className={`${styles["text-span"]} ${nunito}`}>{text}</span>
+      <div className={styles["container-parent"]}>
+        <div className={styles.container}>
+          <span className={styles["image-span"]}>
+            <Image
+              src={iconSrc}
+              width={32}
+              height={32}
+            />
+          </span>
+          <span className={`${styles["text-span"]} ${nunito}`}>{text}</span>
+        </div>
       </div>
     </button>
   );
