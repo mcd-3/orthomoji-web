@@ -4,6 +4,7 @@
     background: none;
     border: none;
     cursor: pointer;
+    font-family: inherit;
 }
 
 .expand-button:hover {
@@ -26,4 +27,9 @@
     height: 100%;
     margin: auto;
     background-color: #21212165;
+}
+
+.text-span {
+    font-family: inherit;
+    color: #FFFFFF;
 }

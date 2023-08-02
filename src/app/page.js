@@ -14,8 +14,9 @@ import CanvasMessage from './components/canvasMessage.js';
 import Button from './components/button.js';
 import TextInput from './components/textInput.js';
 import Header from './components/header.js';
-import EmojiPickerDialog from './components/emojiPickerDialog';
-import CollapseContent from "./components/collapse-content";
+import EmojiPickerDialog from './components/emojiPickerDialog.js';
+import CollapseContent from "./components/collapseContent.js";
+import Spacer from "./components/spacer.js";
 import Image from 'next/image';
 
 import { Orthomoji } from 'orthomoji-dom';
@@ -339,6 +340,7 @@ export default function Home() {
             />
           </div>
         </div>
+        <Spacer />
         <div className={styles.row}>
           <CollapseContent
             collapsedText="Advanced Features"

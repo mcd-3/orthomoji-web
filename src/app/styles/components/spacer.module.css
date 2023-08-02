@@ -1,0 +1,9 @@
+.spacer {
+    width: 55%;
+    border: solid #ddddddc5 1px;
+    border-radius: 1px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    margin-left: auto;
+    margin-right: auto;
+}

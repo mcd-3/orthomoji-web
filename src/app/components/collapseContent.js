@@ -1,7 +1,7 @@
 import { useCollapse } from 'react-collapsed'
 
 import styles from './../styles/components/collapse-content.module.css';
-import { nunito } from './../assets/fonts.js';
+import { nunito } from '../assets/fonts.js';
 
 export default function CollapseContent({
   children,
@@ -17,7 +17,7 @@ export default function CollapseContent({
         {...getToggleProps()}
       >
         <div>
-          <span className={nunito}>{isExpanded ? expandedText : collapsedText}</span>
+          <span className={`${styles["text-span"]} ${nunito}`}>{isExpanded ? expandedText : collapsedText}</span>
         </div>
       </button>
       <section
