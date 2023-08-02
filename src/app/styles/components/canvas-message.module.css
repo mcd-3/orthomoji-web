@@ -16,7 +16,7 @@
 .message-text {
     color: #b4b4b4;
     font-size: 1.5rem;
-    margin-top: 0;
+    margin-top: 12px;
     margin-bottom: 0;
     text-align: center;
 }
@@ -41,10 +41,12 @@
 
 @media screen and (max-width:1152px){
     .message-text {
+        margin-top: 14px;
         font-size: 1.2rem;
     }
 
     .message-icon {
+        margin-top: 8px;
         width: 72px;
     }
 }
