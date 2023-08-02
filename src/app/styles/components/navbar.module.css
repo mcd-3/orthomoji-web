@@ -37,7 +37,7 @@
     align-items: center;
     float: left;
     position: relative;
-    flex: 50%;
+    flex: 70%;
     margin-left: 2%;
 }
 
@@ -47,7 +47,7 @@
     align-items: center;
     float: right;
     position: relative;
-    flex: 50%;
+    flex: 30%;
     margin-right: 2%;
 }
 
@@ -71,7 +71,7 @@
     }
 }
 
-@media screen and (max-width:400px){
+@media screen and (max-width:200px){
     .title {
         margin: 0;
         font-size: 1.2em;

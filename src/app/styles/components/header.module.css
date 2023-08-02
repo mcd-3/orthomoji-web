@@ -1,5 +1,8 @@
 .text {
     font-size: 24px;
     text-decoration: underline;
+    text-align: center;
     color: #FFFFFF;
+    margin-top: 12px;
+    margin-bottom: 12px;
 }

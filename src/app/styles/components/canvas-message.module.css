@@ -10,13 +10,15 @@
     width: 100%;
     height: 30%;
     padding-top: 12px;
+    font-style: italic;
 }
 
 .message-text {
-    color: #9c9c9c;
+    color: #b4b4b4;
     font-size: 1.5rem;
     margin-top: 0;
     margin-bottom: 0;
+    text-align: center;
 }
 
 .message-icon-div {
@@ -30,7 +32,7 @@
 
 .message-icon {
     /* Filters generated here: https://angel-rs.github.io/css-color-filter-generator/ */
-    filter: brightness(0) saturate(100%) invert(68%) sepia(0%) saturate(0%) hue-rotate(172deg) brightness(94%) contrast(83%);
+    filter: brightness(0) saturate(100%) invert(86%) sepia(0%) saturate(0%) hue-rotate(341deg) brightness(86%) contrast(85%);
     width: 96px;
     height: auto;
     margin-top: 0;
@@ -43,6 +45,6 @@
     }
 
     .message-icon {
-        width: 64px;
+        width: 72px;
     }
 }

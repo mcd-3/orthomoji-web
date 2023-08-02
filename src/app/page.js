@@ -312,7 +312,7 @@ export default function Home() {
           </div>
         </div>
         <br />
-        <div className={styles.row}>
+        <div className={styles["row-no-padding"]}>
           <Header text={"Customize your Message"}/>
         </div>
         <div className={styles.row}>

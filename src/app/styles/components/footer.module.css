@@ -24,8 +24,9 @@
     display: flex;
     flex-wrap: wrap;
     background-color: #404040;
-    border-top: 0.3rem solid #343434;
+    border-top: 0.2rem solid #343434;
     bottom: 0;
+    margin-top: 24px;
 }
 
 .text-left {
