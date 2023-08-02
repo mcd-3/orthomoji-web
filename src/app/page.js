@@ -15,6 +15,7 @@ import Button from './components/button.js';
 import TextInput from './components/textInput.js';
 import Header from './components/header.js';
 import EmojiPickerDialog from './components/emojiPickerDialog';
+import CollapseContent from "./components/collapse-content";
 import Image from 'next/image';
 
 import { Orthomoji } from 'orthomoji-dom';
@@ -337,6 +338,23 @@ export default function Home() {
               showError={!emojiIsValid}
             />
           </div>
+        </div>
+        <div className={styles.row}>
+          <CollapseContent
+            collapsedText="Advanced Features"
+            expandedText="Advanced Features"
+          >
+            <div>
+              <p>Hello World!</p>
+              <p>Hello World!</p>
+              <p>Hello World!</p>
+              <p>Hello World!</p>
+              <p>Hello World!</p>
+              <p>Hello World!</p>
+              <p>Hello World!</p>
+              <p>Hello World!</p>
+            </div>
+          </CollapseContent>
         </div>
         <br />
         {canvas}
