@@ -290,7 +290,7 @@ export default function Home() {
       orthomoji
         .setText(text)
         .setEmoji(emoji)
-        .setEmojiSize(24)
+        .setEmojiSize(parseInt(emojiSize))
         .generate();
 
       // Simulate loading since generation is instant
