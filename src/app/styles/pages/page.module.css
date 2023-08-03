@@ -37,6 +37,13 @@
   width: 50%;
 }
 
+.button-column-center {
+  text-align: center; 
+  margin: auto;
+  display: block;
+  width: 90%;
+}
+
 .row {
   padding-bottom: 4px;
   width: 65%

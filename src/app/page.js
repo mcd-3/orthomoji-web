@@ -26,6 +26,7 @@ import generateIcon from './assets/pen.svg';
 import downloadIcon from './assets/download.svg';
 import loadingIcon from './assets/loading.svg';
 import errorIcon from './assets/close-circle.svg';
+import clearIcon from './assets/bandage.svg';
 
 const CANVAS_ID = 'main-canvas';
 const EMOJI_SIZE_DEFAULT = 24;
@@ -46,7 +47,7 @@ export default function Home() {
   const [emojiSizeError, setEmojiSizeError] = useState("");
   const [text, setText] = useState("");
   const [emoji, setEmoji] = useState("");
-  const [emojiSize, setEmojiSize] = useState("24");
+  const [emojiSize, setEmojiSize] = useState("");
   const [secondaryEmoji, setSecondaryEmoji] = useState("");
 
   const [isExpanded, setExpanded] = useState(false);
@@ -296,10 +297,17 @@ export default function Home() {
     // Validate Text + Emoji
     const isTextValid = validateText(text);
     const isEmojiValid = validateEmoji(emoji);
-    const isEmojiSizeValid = validateEmojiSize(emojiSize);
 
-    if (!isTextValid || !isEmojiValid || !isEmojiSizeValid) {
+    if (!isTextValid || !isEmojiValid) {
       return false;
+    }
+
+    // Advanced options validation
+    if (useAdvancedFeatures) {
+      const isEmojiSizeValid = validateEmojiSize(emojiSize);
+      if (!isEmojiSizeValid) {
+        return false;
+      }
     }
 
     setShowCanvasImage(true);
@@ -453,6 +461,23 @@ export default function Home() {
                   />
                 </div>
               </div>
+              <br/>
+              <div className={styles["large-row"]}>
+                <div className={styles["button-column-center"]}>
+                  <Button
+                    iconSrc={clearIcon}
+                    text={"Clear"}
+                    className={btnStyles.clear}
+                    onClick={() => {
+                      setEmojiSize("");
+                      setEmojiSizeIsValid(true);
+                      setSecondaryEmoji("");
+                    }}
+                    disabled={false}
+                  />
+                </div>
+              </div>
+              <br/>
             </div>
           </CollapseContent>
         </div>

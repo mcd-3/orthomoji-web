@@ -66,6 +66,24 @@
     border: 2px solid #8a1700;
 }
 
+.clear {
+    background: rgb(51, 156, 255);
+    background: linear-gradient(54deg, rgb(67, 111, 255) 0%, rgb(93, 89, 219) 100%);
+    border: 2px solid #002ca6;
+}
+
+.clear:hover {
+    background: rgb(118, 186, 249);
+    background: linear-gradient(54deg, rgb(130, 159, 255) 0%,rgb(144, 141, 207) 100%);
+    border: 2px solid #003bdc;
+}
+
+.clear:active {
+    background: rgb(32, 101, 165);
+    background: linear-gradient(54deg, rgb(51, 84, 195) 0%, rgb(60, 57, 143)100%);
+    border: 2px solid #011c68;
+}
+
 .image-span {
     width: 40%;
     text-align: end;
