@@ -117,8 +117,14 @@ export default function Home() {
    */
   const dismissEmojiPickerDialog = () => { setEmojiPickerVisible(false); }
 
+  /**
+   * Displays the secondary emoji picker dialog
+   */
   const displaySecondaryEmojiPickerDialog = () => { setSecondaryEmojiPickerVisible(true); }
 
+  /**
+   * Dismisses the secondary emoji picker dialog
+   */
   const dismissSecondaryEmojiPickerDialog = () => { setSecondaryEmojiPickerVisible(false); }
 
 
