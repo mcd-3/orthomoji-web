@@ -28,6 +28,7 @@ import loadingIcon from './assets/loading.svg';
 import errorIcon from './assets/close-circle.svg';
 
 const CANVAS_ID = 'main-canvas';
+const EMOJI_SIZE_DEFAULT = 24;
 
 export default function Home() {
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
@@ -47,6 +48,9 @@ export default function Home() {
   const [emoji, setEmoji] = useState("");
   const [emojiSize, setEmojiSize] = useState("24");
   const [secondaryEmoji, setSecondaryEmoji] = useState("");
+
+  const [isExpanded, setExpanded] = useState(false);
+  const [useAdvancedFeatures, setUseAdvancedFeatures] = useState(false);
 
   const [generateActive, setGenerateActive] = useState(true);
   const [downloadActive, setDownloadActive] = useState(false);
@@ -302,14 +306,15 @@ export default function Home() {
     createCanvasMessage("Generating...", "loading");
 
     try {
+      const emojiSizeFinal = useAdvancedFeatures ? parseInt(emojiSize) : EMOJI_SIZE_DEFAULT;
+
       const orthomoji = new Orthomoji(CANVAS_ID); 
       orthomoji
         .setText(text)
         .setEmoji(emoji)
-        .setEmojiSize(parseInt(emojiSize))
-        // .generate();
+        .setEmojiSize(emojiSizeFinal)
 
-      if (secondaryEmoji !== "") {
+      if (useAdvancedFeatures && secondaryEmoji !== "") {
         orthomoji.setSpaceEmoji(secondaryEmoji);
       }
 
@@ -415,6 +420,12 @@ export default function Home() {
           <CollapseContent
             collapsedText="Advanced Features"
             expandedText="Advanced Features"
+            isExpanded={isExpanded}
+            setExpanded={setExpanded}
+            onExpandChange={() => {
+              setUseAdvancedFeatures((prevIsUsed) => !prevIsUsed);
+              setExpanded((prevExpanded) => !prevExpanded);
+            }}
           >
             <div className={styles["collapsed-container"]}>
               <div className={styles["large-row"]}>

@@ -9,16 +9,21 @@ import arrowRight from './../assets/arrow-right.svg';
 
 export default function CollapseContent({
   children,
+  isExpanded,
+  onExpandChange = () => {},
   collapsedText = "Expand",
-  expandedText = "Collapse"
+  expandedText = "Collapse",
 }) {
-  const { getCollapseProps, getToggleProps, isExpanded } = useCollapse()
+  const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded });
 
   return (
     <div className={styles["container-parent"]}>
       <button
         className={styles["expand-button"]}
-        {...getToggleProps()}
+        // {...getToggleProps()}
+        {...getToggleProps({
+          onClick: () => { onExpandChange() },
+        })}
       >
         <div className={styles["span-container"]}>
           <span className={styles["image-span"]}>
