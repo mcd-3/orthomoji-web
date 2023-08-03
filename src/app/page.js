@@ -31,6 +31,7 @@ const CANVAS_ID = 'main-canvas';
 
 export default function Home() {
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
+  const [secondaryEmojiPickerVisible, setSecondaryEmojiPickerVisible] = useState(false);
 
   const [showCanvasImage, setShowCanvasImage] = useState(true);
   const [canvasMessage, setCanvasMessage] = useState("No words generated");
@@ -45,6 +46,7 @@ export default function Home() {
   const [text, setText] = useState("");
   const [emoji, setEmoji] = useState("");
   const [emojiSize, setEmojiSize] = useState("24");
+  const [secondaryEmoji, setSecondaryEmoji] = useState("");
 
   const [generateActive, setGenerateActive] = useState(true);
   const [downloadActive, setDownloadActive] = useState(false);
@@ -103,16 +105,18 @@ export default function Home() {
   /**
    * Displays the emoji picker dialog
    */
-  const displayEmojiPickerDialog = () => {
-    setEmojiPickerVisible(true);
-  }
+  const displayEmojiPickerDialog = () => { setEmojiPickerVisible(true); }
 
   /**
    * Dismisses the emoji picker dialog
    */
-  const dismissEmojiPickerDialog = () => {
-    setEmojiPickerVisible(false);
-  }
+  const dismissEmojiPickerDialog = () => { setEmojiPickerVisible(false); }
+
+  const displaySecondaryEmojiPickerDialog = () => { setSecondaryEmojiPickerVisible(true); }
+
+  const dismissSecondaryEmojiPickerDialog = () => { setSecondaryEmojiPickerVisible(false); }
+
+
 
   /**
    * Sets an error for an input
@@ -248,6 +252,18 @@ export default function Home() {
   }
 
   /**
+   * Sets and validates emoji
+   *
+   * @param {object} emojiData - Object containing emoji data
+   * @param {*} event - Input event
+   */
+    const onSecondaryEmojiSelect = (emojiData, event) => {
+      setSecondaryEmoji(emojiData.emoji);
+      validateEmoji(emojiData.emoji);
+      dismissSecondaryEmojiPickerDialog();
+    }
+
+  /**
    * Sets and validates emoji size
    *
    * @param {*} event - Input event
@@ -291,7 +307,13 @@ export default function Home() {
         .setText(text)
         .setEmoji(emoji)
         .setEmojiSize(parseInt(emojiSize))
-        .generate();
+        // .generate();
+
+      if (secondaryEmoji !== "") {
+        orthomoji.setSpaceEmoji(secondaryEmoji);
+      }
+
+      orthomoji.generate();
 
       // Simulate loading since generation is instant
       setGenerateActive(false);
@@ -314,6 +336,9 @@ export default function Home() {
     <main className='main'>
       {emojiPickerVisible &&
         <EmojiPickerDialog onEmojiClick={onEmojiSelect} onDismiss={dismissEmojiPickerDialog} />
+      }
+      {secondaryEmojiPickerVisible &&
+        <EmojiPickerDialog onEmojiClick={onSecondaryEmojiSelect} onDismiss={dismissSecondaryEmojiPickerDialog} />
       }
       <div className='content-container'>
         <NavBar title={"Orthomoji 🖌️"} github={"https://github.com/mcd-3/orthomoji-web"} />
@@ -391,15 +416,32 @@ export default function Home() {
             collapsedText="Advanced Features"
             expandedText="Advanced Features"
           >
-            <div>
-              <TextInput
-                label={"Emoji Size..."}
-                setTextState={setEmojiSize}
-                value={emojiSize}
-                error={emojiSizeError}
-                showError={!emojiSizeIsValid}
-                onChange={onEmojiSizeChange}
-              />
+            <div className={styles["collapsed-container"]}>
+              <div className={styles["large-row"]}>
+                <p className={styles["collapsed-disclaimer"]}>Advanced features will only apply if this is expanded!</p>
+              </div>
+              <div className={styles["large-row"]}>
+                <div className={styles["emoji-size-container"]}>
+                  <TextInput
+                    label={"Emoji Size..."}
+                    setTextState={setEmojiSize}
+                    value={emojiSize}
+                    error={emojiSizeError}
+                    showError={!emojiSizeIsValid}
+                    onChange={onEmojiSizeChange}
+                  />
+                </div>
+                <div className={styles["secondary-emoji-container"]} onClick={displaySecondaryEmojiPickerDialog}>
+                  <TextInput
+                    label={"Secondary Emoji..."}
+                    setTextState={setSecondaryEmoji}
+                    readOnly={true}
+                    value={secondaryEmoji}
+                    error={""}
+                    showError={false}
+                  />
+                </div>
+              </div>
             </div>
           </CollapseContent>
         </div>

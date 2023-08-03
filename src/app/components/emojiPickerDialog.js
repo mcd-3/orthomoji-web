@@ -13,7 +13,6 @@ export default function EmojiPickerDialog({
 }) {
   const noClick = (event) => {
     event.stopPropagation();
-    console.log("Hello World!");
   };
 
   return (

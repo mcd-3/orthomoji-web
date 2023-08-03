@@ -46,6 +46,13 @@
   width: 65%
 }
 
+.large-row {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+}
+
 .main-text-input-container {
   width: 72%;
 }
@@ -66,6 +73,28 @@
 
 .emoji-word {
   margin: auto;
+}
+
+.emoji-size-container {
+  width: 48%;
+}
+
+.secondary-emoji-container {
+  width: 48%
+}
+
+.collapsed-container {
+  margin: auto;
+  padding: 4px;
+}
+
+.collapsed-disclaimer {
+  width: 100%;
+  color: #FFFFFF;
+  text-align: center;
+  margin: auto;
+  padding-top: 8px;
+  padding-bottom: 16px;
 }
 
 @media screen and (max-width:1152px){
