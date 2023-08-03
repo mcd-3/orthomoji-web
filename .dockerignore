@@ -1,0 +1,12 @@
+# Files to ignore
+Dockerfile
+.dockerignore
+.gitignore
+README.md
+
+# Directories to ignore
+build
+.github
+.next
+out
+node_modules
