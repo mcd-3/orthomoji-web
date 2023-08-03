@@ -38,10 +38,13 @@ export default function Home() {
 
   const [textIsValid, setTextIsValid] = useState(true);
   const [emojiIsValid, setEmojiIsValid] = useState(true);
+  const [emojiSizeIsValid, setEmojiSizeIsValid] = useState(true);
   const [textError, setTextError] = useState("Text must not be empty");
   const [emojiError, setEmojiError] = useState("");
+  const [emojiSizeError, setEmojiSizeError] = useState("");
   const [text, setText] = useState("");
   const [emoji, setEmoji] = useState("");
+  const [emojiSize, setEmojiSize] = useState("24");
 
   const [generateActive, setGenerateActive] = useState(true);
   const [downloadActive, setDownloadActive] = useState(false);
@@ -192,6 +195,37 @@ export default function Home() {
   }
 
   /**
+   * Validate emoji size for text art generation
+   * 
+   * @param {string} size - Emoji size to validate
+   * @returns {boolean} True if valid, false if not
+   */
+  const validateEmojiSize = (size) => {
+    const validNumberRegex = /^-?\d*\.?\d+$/
+    if (!validNumberRegex.test(size)) {
+      setEmojiSizeError("Size must be a valid number");
+      setEmojiSizeIsValid(false);
+      return false;
+    }
+
+    if (size > 128) {
+      setEmojiSizeError("Size must be lower than 128");
+      setEmojiSizeIsValid(false);
+      return false;
+    }
+
+    if (size < 1) {
+      setEmojiSizeError("Size must be higher than 0");
+      setEmojiSizeIsValid(false);
+      return false;
+    }
+
+    setEmojiSizeError("");
+    setEmojiSizeIsValid(true);
+    return true;
+  };
+
+  /**
    * Sets and validates text
    *
    * @param {*} event - Input event
@@ -214,6 +248,16 @@ export default function Home() {
   }
 
   /**
+   * Sets and validates emoji size
+   *
+   * @param {*} event - Input event
+   */
+  const onEmojiSizeChange = (event) => {
+    const size = event.target.value;
+    validateEmojiSize(size);
+  };
+
+  /**
    * Downloads the content of the canvas as a png image
    */
   const downloadTextArt = () => {
@@ -232,8 +276,9 @@ export default function Home() {
     // Validate Text + Emoji
     const isTextValid = validateText(text);
     const isEmojiValid = validateEmoji(emoji);
+    const isEmojiSizeValid = validateEmojiSize(emojiSize);
 
-    if (!isTextValid || !isEmojiValid) {
+    if (!isTextValid || !isEmojiValid || !isEmojiSizeValid) {
       return false;
     }
 
@@ -347,14 +392,14 @@ export default function Home() {
             expandedText="Advanced Features"
           >
             <div>
-              <p>Hello World!</p>
-              <p>Hello World!</p>
-              <p>Hello World!</p>
-              <p>Hello World!</p>
-              <p>Hello World!</p>
-              <p>Hello World!</p>
-              <p>Hello World!</p>
-              <p>Hello World!</p>
+              <TextInput
+                label={"Emoji Size..."}
+                setTextState={setEmojiSize}
+                value={emojiSize}
+                error={emojiSizeError}
+                showError={!emojiSizeIsValid}
+                onChange={onEmojiSizeChange}
+              />
             </div>
           </CollapseContent>
         </div>

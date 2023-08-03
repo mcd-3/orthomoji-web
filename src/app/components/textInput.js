@@ -21,6 +21,7 @@ export default function TextInput({
   isDisabled = false,
   value = "",
   error = "",
+  type = "text",
   readOnly = false,
   showError = false,
   onChange = () => {},
@@ -28,7 +29,7 @@ export default function TextInput({
   return (
     <div className={nunito}>
       <input
-        type="text"
+        type={type}
         placeholder={label}
         className={showError ? styles["input-error"] : styles.input}
         maxLength={maxLength}
