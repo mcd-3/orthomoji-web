@@ -17,6 +17,7 @@ import Header from './components/header.js';
 import EmojiPickerDialog from './components/emojiPickerDialog.js';
 import CollapseContent from "./components/collapseContent.js";
 import Spacer from "./components/spacer.js";
+import ColorInput from "./components/colorInput.js";
 import Image from 'next/image';
 
 import { Orthomoji } from 'orthomoji-dom';
@@ -458,7 +459,7 @@ export default function Home() {
                 </div>
                 <div className={styles["secondary-emoji-container"]} onClick={displaySecondaryEmojiPickerDialog}>
                   <TextInput
-                    label={"Secondary Emoji..."}
+                    label={"2nd Emoji..."}
                     setTextState={setSecondaryEmoji}
                     readOnly={true}
                     value={secondaryEmoji}
@@ -468,6 +469,13 @@ export default function Home() {
                 </div>
               </div>
               <br/>
+              <div className={styles["large-row"]}>
+                <ColorInput
+                  placeholder="Background..."
+                  colorState={null}
+                  setColorState={null}
+                />
+              </div>
               <div className={styles["large-row"]}>
                 <div className={styles["button-column-center"]}>
                   <Button

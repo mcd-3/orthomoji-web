@@ -1,0 +1,108 @@
+.parent {
+    width: 100%;
+    height: 48px;
+    margin: auto;
+    font-family: inherit;
+    border-radius: 8px;
+    border: 2px solid #3f3f3f;
+    background-color: #FFFFFF;
+    color: #3f3f3f;
+    font-size: 16px;
+    padding-left: 8px;
+    box-sizing: border-box;
+    filter: drop-shadow(0px 5px 0.4rem #424242);
+    overflow: visible;
+}
+
+.row {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-container {
+    width: 75%;
+    height: 44px;
+    display: flex;
+    margin: auto;
+    justify-content: space-between;
+}
+
+.text-input {
+    font-family: inherit;
+    border: none;
+    background: #00000000;
+    min-width: 0;
+    height: auto;
+    align-items: center;
+}
+
+.text-input::placeholder {
+    font-family: inherit;
+    font-size: 16px;
+    font-style: italic;
+    color: #6e6e6e;
+    opacity: 40%;
+}
+
+.text-input:focus {
+    outline: none !important;
+}
+
+.color {
+    width: 25%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.color-container {
+    width: 50%;
+}
+
+.color-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    width: 100%;
+    height: 44px;
+    background-color: transparent;
+    border: none;
+}
+
+.color-input::-webkit-color-swatch {
+    border-radius: 6px;
+    border: none;
+}
+
+.color-input::-moz-color-swatch {
+    border-radius: 6px;
+    border: none;
+}
+
+.clear-container {
+    width: 50%;
+    height: 44px;
+}
+
+.clear-button {
+    height: 80%;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 4%;
+}
+
+
+@media screen and (max-width:500px){
+    .input-container {
+        width: 70%; 
+    }
+
+    .color {
+        width: 30%;
+    }
+}
