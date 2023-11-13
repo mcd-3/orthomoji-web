@@ -219,7 +219,11 @@ export default function Home() {
    */
   const validateEmojiSize = (size) => {
     const validNumberRegex = /^-?\d*\.?\d+$/
-    if (!validNumberRegex.test(size)) {
+    if (size == "") {
+      setEmojiSizeError("");
+      setEmojiSizeIsValid(true);
+      return true;
+    } else if (!validNumberRegex.test(size)) {
       setEmojiSizeError("Size must be a valid number");
       setEmojiSizeIsValid(false);
       return false;
@@ -322,7 +326,10 @@ export default function Home() {
     createCanvasMessage("Generating...", "loading");
 
     try {
-      const emojiSizeFinal = useAdvancedFeatures ? parseInt(emojiSize) : EMOJI_SIZE_DEFAULT;
+      const emojiSizeFinal = 
+        useAdvancedFeatures && emojiSize !== ""
+          ? parseInt(emojiSize)
+          : EMOJI_SIZE_DEFAULT;
 
       const orthomoji = new Orthomoji(CANVAS_ID); 
       orthomoji
