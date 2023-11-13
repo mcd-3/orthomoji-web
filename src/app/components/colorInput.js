@@ -31,10 +31,20 @@ export default function ColorInput({
   
   const isDesktop = width > 768;
 
+  const textInput = <input
+    className={styles["text-input"]}
+    value={colorState}
+    type="text"
+    placeholder={placeholder}
+    readOnly={true}
+  />
+
   const colourButton = <input
     type="color"
     className={styles["color-input"]}
     onChange={(e) => {setColorState(e.target.value)}}
+    onSelect={(e) => {setColorState(e.target.value)}}
+    value={colorState}
     ref={colourRef}
   />
 
@@ -44,13 +54,7 @@ export default function ColorInput({
       ?
         <div className={styles.row} onClick={handleColorClick}>
           <div className={styles["input-container"]}>
-            <input
-              className={styles["text-input"]}
-              value={colorState}
-              type="text"
-              placeholder={placeholder}
-              readOnly={true}
-            />
+            { textInput }
           </div>
           <div className={styles.color}>
             <div className={styles["color-container"]}>
@@ -68,15 +72,10 @@ export default function ColorInput({
           </div>
         </div>
       :
-        <div onClick={() => {colorState.click}}>
+        <div onClick={handleColorClick}>
           <div className={styles.row}>
             <div className={styles["input-container"]}>
-              <input
-                className={styles["text-input"]}
-                type="text"
-                placeholder={placeholder}
-                readOnly={true}
-              />
+              { textInput }
             </div>
           </div>
           <div className={styles.row}>
