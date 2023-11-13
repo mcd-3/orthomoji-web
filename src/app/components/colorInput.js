@@ -68,27 +68,31 @@ export default function ColorInput({
           </div>
         </div>
       :
-        <div className={styles.row} onClick={() => {colorState.click}}>
-          <div className={styles["input-container"]}>
-            <input
-              className={styles["text-input"]}
-              type="text"
-              placeholder={placeholder}
-              readOnly={true}
-            />
-          </div>
-          <div className={styles.color}>
-            <div>
-              { colourButton }
+        <div onClick={() => {colorState.click}}>
+          <div className={styles.row}>
+            <div className={styles["input-container"]}>
+              <input
+                className={styles["text-input"]}
+                type="text"
+                placeholder={placeholder}
+                readOnly={true}
+              />
             </div>
-            <div>
-              <button
-                className={`${clearBtnStyle} ${nunito}`}
-                disabled={colorState == ""}
-                onClick={(event) => {event.stopPropagation(); setColorState("")}}
-              >
-                Clear
-              </button>
+          </div>
+          <div className={styles.row}>
+            <div className={styles.color}>
+              <div className={styles["color-container"]}>
+                { colourButton }
+              </div>
+              <div className={styles["clear-container"]}>
+                <button
+                  className={`${clearBtnStyle} ${nunito}`}
+                  disabled={colorState == ""}
+                  onClick={(event) => {event.stopPropagation(); setColorState("")}}
+                >
+                  Clear
+                </button>
+              </div>
             </div>
           </div>
         </div>
