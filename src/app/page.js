@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import styles from './styles/pages/page.module.css'
 import btnStyles from './styles/components/button.module.css';
@@ -31,6 +31,11 @@ import clearIcon from './assets/bandage.svg';
 
 const CANVAS_ID = 'main-canvas';
 const EMOJI_SIZE_DEFAULT = 24;
+const MAIN_TEXT_INPUT_PLACEHOLDER = "Enter text here...";
+const EMOJI_TEXT_INPUT_PLACEHOLDER = "😃❤️🎉...";
+const EMOJI_SIZE_TEXT_INPUT_PLACEHOLDER = "Emoji Size...";
+const SECONDARY_EMOJI_TEXT_INPUT_PLACEHOLDER = "Secondary Emoji...";
+const SECONDARY_EMOJI_TEXT_INPUT_PLACEHOLDER_MOBILE = "2nd Emoji...";
 
 export default function Home() {
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
@@ -60,7 +65,22 @@ export default function Home() {
 
   const [textArt, setTextArt] = useState("");
 
+  const [width, setWidth] = useState(0);
+  const isDesktop = width > 768;
+
   const canvas = <canvas id={CANVAS_ID} className="canvas"></canvas>;
+
+  useEffect(() => {
+    const handleWindowSizeChange = () => {
+      setWidth(window.innerWidth);
+    }
+
+    setWidth(window.innerWidth);
+    window.addEventListener('resize', handleWindowSizeChange);
+    return () => {
+        window.removeEventListener('resize', handleWindowSizeChange);
+    }
+}, []);
 
   /**
    * Pauses execution for a set amount of time
@@ -365,6 +385,47 @@ export default function Home() {
     }
   };
 
+  // Main text input to type text to emojify
+  const mainTextInput = <TextInput
+    label={MAIN_TEXT_INPUT_PLACEHOLDER}
+    setTextState={setText}
+    value={text}
+    error={textError}
+    showError={!textIsValid}
+    onChange={onTextChange}
+    maxLength={999}
+  />
+
+  // Main emoji input to use to make words with emojis
+  const mainEmojiInput =  <TextInput
+    label={EMOJI_TEXT_INPUT_PLACEHOLDER}
+    setTextState={setEmoji}
+    readOnly={true}
+    value={emoji}
+    error={emojiError}
+    showError={!emojiIsValid}
+  />
+
+  // Input to use to change font size of emojis
+  const emojiSizeInput = <TextInput
+    label={EMOJI_SIZE_TEXT_INPUT_PLACEHOLDER}
+    setTextState={setEmojiSize}
+    value={emojiSize}
+    error={emojiSizeError}
+    showError={!emojiSizeIsValid}
+    onChange={onEmojiSizeChange}
+  />
+
+  // Input to use to add secondary/spacing emojis
+  const secondaryEmojiInput = <TextInput
+    label={isDesktop ? SECONDARY_EMOJI_TEXT_INPUT_PLACEHOLDER : SECONDARY_EMOJI_TEXT_INPUT_PLACEHOLDER_MOBILE}
+    setTextState={setSecondaryEmoji}
+    readOnly={true}
+    value={secondaryEmoji}
+    error={""}
+    showError={false}
+  />
+
   return (
     <main className='main'>
       {emojiPickerVisible &&
@@ -420,29 +481,30 @@ export default function Home() {
         <div className={styles["row-no-padding"]}>
           <Header text={"Customize your Message"}/>
         </div>
-        <div className={styles.row}>
-          <div className={styles["main-text-input-container"]}>
-            <TextInput
-              label={"Enter text here..."}
-              setTextState={setText}
-              value={text}
-              error={textError}
-              showError={!textIsValid}
-              onChange={onTextChange}
-              maxLength={999}
-            />
-          </div>
-          <div className={styles["main-emoji-input-container"]} onClick={displayEmojiPickerDialog}>
-            <TextInput
-              label={"😃❤️🎉..."}
-              setTextState={setEmoji}
-              readOnly={true}
-              value={emoji}
-              error={emojiError}
-              showError={!emojiIsValid}
-            />
-          </div>
-        </div>
+        {isDesktop
+          ?
+            <div className={styles.row}>
+              <div className={styles["main-text-input-container"]}>
+                { mainTextInput }
+              </div>
+              <div className={styles["main-emoji-input-container"]} onClick={displayEmojiPickerDialog}>
+                { mainEmojiInput }
+              </div>
+            </div>
+          :
+            <div>
+              <div className={styles.row}>
+                <div className={styles["main-text-input-container"]}>
+                  { mainTextInput }
+                </div>
+              </div>
+              <div className={styles.row}>
+                <div className={styles["main-emoji-input-container"]} onClick={displayEmojiPickerDialog}>
+                  { mainEmojiInput }
+                </div>
+              </div>
+            </div>
+        }
         <Spacer />
         <div className={styles.row}>
           <CollapseContent
@@ -459,28 +521,30 @@ export default function Home() {
               <div className={styles["large-row"]}>
                 <p className={styles["collapsed-disclaimer"]}>Advanced features will only apply if this is expanded!</p>
               </div>
-              <div className={styles["large-row"]}>
-                <div className={styles["emoji-size-container"]}>
-                  <TextInput
-                    label={"Emoji Size..."}
-                    setTextState={setEmojiSize}
-                    value={emojiSize}
-                    error={emojiSizeError}
-                    showError={!emojiSizeIsValid}
-                    onChange={onEmojiSizeChange}
-                  />
+              {isDesktop
+                ?
+                  <div className={styles["large-row"]}>
+                    <div className={styles["emoji-size-container"]}>
+                      { emojiSizeInput }
+                    </div>
+                    <div className={styles["secondary-emoji-container"]} onClick={displaySecondaryEmojiPickerDialog}>
+                      { secondaryEmojiInput }
+                    </div>
+                  </div>
+                :
+                <div>
+                  <div className={styles["large-row"]}>
+                    <div className={styles["emoji-size-container"]}>
+                      { emojiSizeInput }
+                    </div>
+                  </div>
+                  <div className={styles["large-row"]}>
+                    <div className={styles["secondary-emoji-container"]} onClick={displaySecondaryEmojiPickerDialog}>
+                      { secondaryEmojiInput }
+                    </div>
+                  </div>
                 </div>
-                <div className={styles["secondary-emoji-container"]} onClick={displaySecondaryEmojiPickerDialog}>
-                  <TextInput
-                    label={"2nd Emoji..."}
-                    setTextState={setSecondaryEmoji}
-                    readOnly={true}
-                    value={secondaryEmoji}
-                    error={""}
-                    showError={false}
-                  />
-                </div>
-              </div>
+              }
               <br/>
               <div className={styles["large-row"]}>
                 <ColorInput

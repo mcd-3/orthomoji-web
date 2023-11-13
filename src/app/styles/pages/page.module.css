@@ -117,3 +117,25 @@
     width: 34%
   }
 }
+
+@media screen and (max-width:768px){
+  .main-text-input-container {
+    width: 100%;
+  }
+  
+  .main-emoji-input-container {
+    width: 100%
+  }
+
+  .large-row {
+    padding-top: 4px;
+  }
+
+  .emoji-size-container {
+    width: 100%;
+  }
+  
+  .secondary-emoji-container {
+    width: 100%
+  }
+}
