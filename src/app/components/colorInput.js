@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from './../styles/components/color-input.module.css';
 
 import { nunito } from './../assets/fonts.js';
@@ -23,14 +23,26 @@ export default function ColorInput({
           window.removeEventListener('resize', handleWindowSizeChange);
       }
   }, []);
+
+  const colourRef = useRef(null);
+  const handleColorClick = () => {
+    colourRef.current.click();
+  }
   
-  const isDesktop = width >= 768;
+  const isDesktop = width > 768;
+
+  const colourButton = <input
+    type="color"
+    className={styles["color-input"]}
+    onChange={(e) => {setColorState(e.target.value)}}
+    ref={colourRef}
+  />
 
   return (
     <div className={styles.parent}>
     {isDesktop
       ?
-        <div className={styles.row} onClick={() => {console.log("Parent is clicked!")}}>
+        <div className={styles.row} onClick={handleColorClick}>
           <div className={styles["input-container"]}>
             <input
               className={styles["text-input"]}
@@ -42,11 +54,7 @@ export default function ColorInput({
           </div>
           <div className={styles.color}>
             <div className={styles["color-container"]}>
-              <input
-                type="color"
-                className={styles["color-input"]}
-                onChange={(e) => {setColorState(e.target.value)}}
-              />
+              { colourButton }
             </div>
             <div className={styles["clear-container"]}>
               <button
@@ -60,7 +68,7 @@ export default function ColorInput({
           </div>
         </div>
       :
-        <div className={styles.row} onClick={() => {console.log("Parent is clicked!")}}>
+        <div className={styles.row} onClick={() => {colorState.click}}>
           <div className={styles["input-container"]}>
             <input
               className={styles["text-input"]}
@@ -71,7 +79,7 @@ export default function ColorInput({
           </div>
           <div className={styles.color}>
             <div>
-              <input className={styles["color-input"]} type="color" />
+              { colourButton }
             </div>
             <div>
               <button
