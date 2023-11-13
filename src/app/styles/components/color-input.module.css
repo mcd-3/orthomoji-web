@@ -74,13 +74,13 @@
 }
 
 .color-input::-webkit-color-swatch {
-    border-radius: 6px;
-    border: none;
+    border-radius: 4px;
+    border: 2px #656565 solid;
 }
 
 .color-input::-moz-color-swatch {
-    border-radius: 6px;
-    border: none;
+    border-radius: 4px;
+    border: 2px #656565 solid;
 }
 
 .clear-container {
@@ -89,11 +89,45 @@
 }
 
 .clear-button {
+    font-family: inherit;
     height: 80%;
     width: 80%;
     margin-left: 10%;
     margin-right: 10%;
     margin-top: 4%;
+    cursor: pointer;
+    color: #FFFFFF;
+    border: 2px #656565 solid;
+    border-radius: 4px;
+    background: rgb(74, 74, 74);
+    background: linear-gradient(54deg, #ff3535 0%, #fd1515 100%);
+}
+
+.clear-button:hover {
+    background: #ff7676;
+    background: linear-gradient(54deg, #ff7676 0%, #ff5252 100%);
+    border: 2px #656565 solid;
+}
+
+.clear-button:active {
+    background: #c72727;
+    background: linear-gradient(54deg, #c72727 0%, #a61414 100%);
+    border: 2px solid #656565
+}
+
+.disabled {
+    font-family: inherit;
+    height: 80%;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 4%;
+    cursor: pointer;
+    color: #FFFFFF;
+    background: rgb(168, 168, 168);
+    border-radius: 4px;
+    background: linear-gradient(54deg, rgb(97, 97, 97) 0%, rgb(154, 154, 154) 100%);
+    border: 2px solid #454545;
 }
 
 

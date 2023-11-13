@@ -50,6 +50,7 @@ export default function Home() {
   const [emoji, setEmoji] = useState("");
   const [emojiSize, setEmojiSize] = useState("");
   const [secondaryEmoji, setSecondaryEmoji] = useState("");
+  const [colorState, setColorState] = useState("");
 
   const [isExpanded, setExpanded] = useState(false);
   const [useAdvancedFeatures, setUseAdvancedFeatures] = useState(false);
@@ -333,6 +334,11 @@ export default function Home() {
         orthomoji.setSpaceEmoji(secondaryEmoji);
       }
 
+      if (useAdvancedFeatures && colorState !== "") {
+        console.log(colorState);
+        orthomoji.setBackgroundStyle(colorState);
+      }
+
       orthomoji.generate();
 
       // Simulate loading since generation is instant
@@ -472,10 +478,11 @@ export default function Home() {
               <div className={styles["large-row"]}>
                 <ColorInput
                   placeholder="Background..."
-                  colorState={null}
-                  setColorState={null}
+                  colorState={colorState}
+                  setColorState={setColorState}
                 />
               </div>
+              <br />
               <div className={styles["large-row"]}>
                 <div className={styles["button-column-center"]}>
                   <Button
@@ -486,6 +493,7 @@ export default function Home() {
                       setEmojiSize("");
                       setEmojiSizeIsValid(true);
                       setSecondaryEmoji("");
+                      setColorState("");
                     }}
                     disabled={false}
                   />

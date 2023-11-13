@@ -1,12 +1,16 @@
 import { useState, useEffect } from "react";
 import styles from './../styles/components/color-input.module.css';
 
+import { nunito } from './../assets/fonts.js';
+
 export default function ColorInput({
   placeholder = "Color...",
   colorState,
   setColorState,
 }) {
   const [width, setWidth] = useState(0);
+
+  const clearBtnStyle = colorState == "" ? styles.disabled : styles["clear-button"];
 
   useEffect(() => {
       const handleWindowSizeChange = () => {
@@ -30,6 +34,7 @@ export default function ColorInput({
           <div className={styles["input-container"]}>
             <input
               className={styles["text-input"]}
+              value={colorState}
               type="text"
               placeholder={placeholder}
               readOnly={true}
@@ -37,13 +42,20 @@ export default function ColorInput({
           </div>
           <div className={styles.color}>
             <div className={styles["color-container"]}>
-              <input type="color" className={styles["color-input"]} />
+              <input
+                type="color"
+                className={styles["color-input"]}
+                onChange={(e) => {setColorState(e.target.value)}}
+              />
             </div>
             <div className={styles["clear-container"]}>
               <button
-                className={styles["clear-button"]}
-                onClick={(event) => {event.stopPropagation(); console.log("Child is clicked!")}}
-              >Clear</button>
+                className={`${clearBtnStyle} ${nunito}`}
+                disabled={colorState == ""}
+                onClick={(event) => {event.stopPropagation(); setColorState("")}}
+              >
+                Clear
+              </button>
             </div>
           </div>
         </div>
@@ -63,9 +75,12 @@ export default function ColorInput({
             </div>
             <div>
               <button
-                className={styles["clear-button"]}
-                onClick={(event) => {event.stopPropagation(); console.log("Child is clicked!")}}
-              >Clear</button>
+                className={`${clearBtnStyle} ${nunito}`}
+                disabled={colorState == ""}
+                onClick={(event) => {event.stopPropagation(); setColorState("")}}
+              >
+                Clear
+              </button>
             </div>
           </div>
         </div>
@@ -73,7 +88,3 @@ export default function ColorInput({
     </div>
   );
 }
-
-// Div:
-//    - onClick: show color picker
-// Layout:    [         Input         ][Hex]
