@@ -8,3 +8,15 @@
     text-align: center;
     color: white;
 }
+
+@media screen and (max-width:1152px){
+    .text {
+        font-size: 1em;
+    }
+}
+
+@media screen and (max-width:500px){
+    .text {
+        font-size: 0.8em;
+    }
+}
