@@ -61,7 +61,7 @@ export default function EmojiPickerDialog({
               </div>
             :
               <div>
-                <button className={styles["cancel-circle"]}>
+                <button className={styles["cancel-circle"]} onClick={onDismiss}>
                   <Image
                     src={cancelCircle}
                     width={48}
