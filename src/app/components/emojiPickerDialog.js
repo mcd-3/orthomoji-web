@@ -54,7 +54,7 @@ export default function EmojiPickerDialog({
                 <Button
                   iconSrc={cancelIcon}
                   text={"Cancel"}
-                  className={btnStyles.generate}
+                  className={btnStyles.clear}
                   onClick={onDismiss}
                   disabled={false}
                 />
