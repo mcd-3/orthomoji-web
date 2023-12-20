@@ -67,21 +67,21 @@
 }
 
 .generate {
-    background: rgb(51, 156, 255);
-    background: linear-gradient(54deg, rgb(67, 111, 255) 0%, rgb(93, 89, 219) 100%);
-    border: 2px solid #002ca6;
+    background: rgb(46, 219, 228);
+    background: linear-gradient(54deg, rgb(46, 219, 228) 0%, rgb(38, 183, 191) 100%);
+    border: 2px solid rgb(20, 113, 118);
 }
 
 .generate:hover {
-    background: rgb(118, 186, 249);
-    background: linear-gradient(54deg, rgb(130, 159, 255) 0%,rgb(144, 141, 207) 100%);
-    border: 2px solid #003bdc;
+    background: rgb(141, 242, 247);
+    background: linear-gradient(54deg, rgb(141, 242, 247) 0%,rgb(120, 182, 185) 100%);
+    border: 2px solid rgb(38, 195, 203);
 }
 
 .generate:active {
-    background: rgb(32, 101, 165);
-    background: linear-gradient(54deg, rgb(51, 84, 195) 0%, rgb(60, 57, 143)100%);
-    border: 2px solid #011c68;
+    background: rgb(15, 147, 154);
+    background: linear-gradient(54deg, rgb(15, 147, 154) 0%, rgb(10, 95, 99) 100%);
+    border: 2px solid rgb(18, 97, 101);
 }
 
 .image-span {
