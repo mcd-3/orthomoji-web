@@ -18,9 +18,11 @@ import EmojiPickerDialog from './components/emojiPickerDialog.js';
 import CollapseContent from "./components/collapseContent.js";
 import Spacer from "./components/spacer.js";
 import ColorInput from "./components/colorInput.js";
+import Warning from "./components/warning";
 import Image from 'next/image';
 
 import { Orthomoji } from 'orthomoji-dom';
+import { areEmojisMatching, isFontBig } from './utils/warningCheck.js';
 
 import paintIcon from './assets/brush.svg';
 import generateIcon from './assets/pen.svg';
@@ -67,6 +69,7 @@ export default function Home() {
 
   const [width, setWidth] = useState(0);
   const isDesktop = width > 768;
+  const isWarningVisible = (isExpanded && (areEmojisMatching(emoji, secondaryEmoji) || isFontBig(emojiSize)));
 
   const canvas = <canvas id={CANVAS_ID} className="canvas"></canvas>;
 
@@ -477,7 +480,18 @@ export default function Home() {
             />
           </div>
         </div>
-        <br />
+        {/* Warning message to help with UX */}
+        {isWarningVisible
+          ?
+            <div>
+              <br />
+              <div className={styles["row-no-padding"]}>
+                <Warning emojiSize={emojiSize} emojiArray={[emoji, secondaryEmoji]}/>
+              </div>
+            </div>
+          :
+            <br />
+        }
         <div className={styles["row-no-padding"]}>
           <Header text={"Customize your Message"}/>
         </div>

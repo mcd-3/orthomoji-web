@@ -1,0 +1,10 @@
+.container {
+    margin: auto;
+    width: 85%;
+}
+
+.text {
+    font-size: 1.15em;
+    text-align: center;
+    color: white;
+}
