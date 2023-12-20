@@ -20,7 +20,7 @@
 
 .button-container, .row, .row-no-padding {
   margin: auto;
-  width: 65%;
+  width: 40%;
   display: flex;
   justify-content: space-between;
 }
@@ -41,7 +41,7 @@
   text-align: center; 
   margin: auto;
   display: block;
-  width: 90%;
+  width: 40%;
 }
 
 .row {
