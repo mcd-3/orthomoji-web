@@ -27,6 +27,25 @@
     height: auto;
 }
 
+.cancel-circle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 16px;
+    margin-top: 16px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+}
+
+.cancel-circle:active {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(1%) saturate(4191%) hue-rotate(182deg) brightness(115%) contrast(75%);
+}
+
 @media screen and (max-width:500px){
     .emoji-picker {
         max-height: 60vh;
