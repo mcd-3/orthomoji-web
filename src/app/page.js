@@ -24,7 +24,7 @@ import Image from 'next/image';
 import { Orthomoji } from 'orthomoji-dom';
 import { areEmojisMatching, isFontBig } from './utils/warningCheck.js';
 
-import paintIcon from './assets/brush.svg';
+import paintIcon from './assets/instant-picture.svg';
 import generateIcon from './assets/pen.svg';
 import downloadIcon from './assets/download.svg';
 import loadingIcon from './assets/loading.svg';
