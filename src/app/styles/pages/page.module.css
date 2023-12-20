@@ -116,6 +116,10 @@
   .main-emoji-input-container {
     width: 34%
   }
+
+  .button-column-center {
+    width: 65%;
+  }
 }
 
 @media screen and (max-width:768px){
@@ -137,5 +141,9 @@
   
   .secondary-emoji-container {
     width: 100%
+  }
+
+  .button-column-center {
+    width: 100%;
   }
 }
