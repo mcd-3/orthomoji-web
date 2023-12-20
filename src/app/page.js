@@ -29,7 +29,7 @@ import generateIcon from './assets/pen.svg';
 import downloadIcon from './assets/download.svg';
 import loadingIcon from './assets/loading.svg';
 import errorIcon from './assets/close-circle.svg';
-import clearIcon from './assets/bandage.svg';
+import clearIcon from './assets/trash.svg';
 
 const CANVAS_ID = 'main-canvas';
 const EMOJI_SIZE_DEFAULT = 24;
