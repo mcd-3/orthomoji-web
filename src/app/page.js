@@ -407,6 +407,7 @@ export default function Home() {
     value={emoji}
     error={emojiError}
     showError={!emojiIsValid}
+    hasClearButton={true}
   />
 
   // Input to use to change font size of emojis
@@ -427,6 +428,7 @@ export default function Home() {
     value={secondaryEmoji}
     error={""}
     showError={false}
+    hasClearButton={true}
   />
 
   return (
