@@ -72,6 +72,7 @@ export default function TextInput({
                   e.stopPropagation();
                   setTextState("");
                 }}
+                disabled={value == ""}
               >
                 <Image
                   className={styles["button-icon"]}
