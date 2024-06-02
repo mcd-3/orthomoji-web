@@ -24,6 +24,7 @@ import Image from 'next/image';
 import { Orthomoji } from 'orthomoji-dom';
 import { areEmojisMatching, isFontBig } from './utils/warningCheck.js';
 import { wait } from './utils/wait.js';
+import { getImageName } from './utils/images.js';
 
 import paintIcon from './assets/instant-picture.svg';
 import generateIcon from './assets/pen.svg';
@@ -86,21 +87,7 @@ export default function Home() {
     return () => {
         window.removeEventListener('resize', handleWindowSizeChange);
     }
-}, []);
-
-  /**
-   * Generates a name for the downloaded canvas image file
-   * 
-   * @param {string} text - Text to add to image name
-   * @returns {string} Filename
-   */
-  const getImageName = (text) => {
-    const sanitizedText = text
-      .trim()
-      .toLowerCase()
-      .replace(/[\W_]+/g, "");
-    return `orthomoji_${sanitizedText}.png`;
-  }
+  }, []);
 
   /**
    * Sets a message and icon to the canvas
