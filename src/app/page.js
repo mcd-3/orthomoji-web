@@ -1,13 +1,20 @@
 'use client';
 
+// Libraries + Tools
 import { useState } from "react";
 import { useWindowResize } from './hooks/useWindowResize.js';
 import { useCanvasState } from "./hooks/useCnvasState.js";
+import { Orthomoji } from 'orthomoji-dom';
+import { areEmojisMatching, isFontBig } from './utils/warningCheck.js';
+import { wait } from './utils/wait.js';
+import { getImageName } from './utils/images.js';
 
+// Styles
 import styles from './styles/pages/page.module.css'
 import btnStyles from './styles/components/button.module.css';
 import './globals.css';
 
+// Components
 import Image from 'next/image';
 import {
   NavBar,
@@ -25,11 +32,7 @@ import {
   Warning,
 } from './components';
 
-import { Orthomoji } from 'orthomoji-dom';
-import { areEmojisMatching, isFontBig } from './utils/warningCheck.js';
-import { wait } from './utils/wait.js';
-import { getImageName } from './utils/images.js';
-
+// Icons
 import paintIcon from '/public/icons/instant-picture.svg';
 import generateIcon from '/public/icons/pen.svg';
 import downloadIcon from '/public/icons/download.svg';
@@ -37,9 +40,7 @@ import loadingIcon from '/public/icons/loading.svg';
 import errorIcon from '/public/icons/close-circle.svg';
 import clearIcon from '/public/icons/trash.svg';
 
-const CANVAS_ID = 'main-canvas';
-const EMOJI_SIZE_DEFAULT = 24;
-
+// Text Strings
 import {
   APP_NAME_TITLE,
   APP_REPOSITORY,
@@ -70,6 +71,9 @@ import {
   ADVANCED_FEATURES_EXTENDED,
   BACKGROUND
 } from './text.json';
+
+const CANVAS_ID = 'main-canvas';
+const EMOJI_SIZE_DEFAULT = 24;
 
 export default function Home() {
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
@@ -104,20 +108,16 @@ export default function Home() {
 
   const [isExpanded, setExpanded] = useState(false);
   const [useAdvancedFeatures, setUseAdvancedFeatures] = useState(false);
+  const [textArt, setTextArt] = useState("");
+  const { isDesktop } = useWindowResize();
 
   const [buttonActive, setButtonActive] = useState({
     generate: true,
     download: false,
-  })
-
-  const [textArt, setTextArt] = useState("");
-
-  const { isDesktop } = useWindowResize();
+  });
 
   const isWarningVisible = (isExpanded && (areEmojisMatching(emoji, secondaryEmoji) || isFontBig(emojiSize)));
-
   const colourPickerClass = isDesktop ? "medium-row" : "large-row";
-
   const canvas = <canvas id={CANVAS_ID} className="canvas"></canvas>;
 
   /**
