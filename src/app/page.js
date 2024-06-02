@@ -49,12 +49,15 @@ export default function Home() {
   const [canvasMessage, setCanvasMessage] = useState("No words generated");
   const [canvasIcon, setCanvasIcon] = useState(paintIcon);
 
+  const [emojiSizeValid, setEmojiSizeValid] = useState({
+    isValid: true,
+    errorMessage: ""
+  });
+
   const [textIsValid, setTextIsValid] = useState(true);
   const [emojiIsValid, setEmojiIsValid] = useState(true);
-  const [emojiSizeIsValid, setEmojiSizeIsValid] = useState(true);
   const [textError, setTextError] = useState("Text must not be empty");
   const [emojiError, setEmojiError] = useState("");
-  const [emojiSizeError, setEmojiSizeError] = useState("");
   const [text, setText] = useState("");
   const [emoji, setEmoji] = useState("");
   const [emojiSize, setEmojiSize] = useState("");
@@ -223,29 +226,36 @@ export default function Home() {
   const validateEmojiSize = (size) => {
     const validNumberRegex = /^-?\d*\.?\d+$/
     if (size == "") {
-      setEmojiSizeError("");
-      setEmojiSizeIsValid(true);
+      setEmojiSizeValid({
+        isValid: true,
+        errorMessage: "",
+      });
       return true;
     } else if (!validNumberRegex.test(size)) {
-      setEmojiSizeError("Size must be a valid number");
-      setEmojiSizeIsValid(false);
+      setEmojiSizeValid({
+        isValid: false,
+        errorMessage: "Size must be a valid number",
+      }); 
       return false;
     }
 
     if (size > 128) {
-      setEmojiSizeError("Size must be lower than 128");
-      setEmojiSizeIsValid(false);
+      setEmojiSizeValid({
+        isValid: false,
+        errorMessage: "Size must be lower than 128",
+      }); 
       return false;
     }
 
     if (size < 1) {
-      setEmojiSizeError("Size must be higher than 0");
-      setEmojiSizeIsValid(false);
+      setEmojiSizeValid({
+        isValid: false,
+        errorMessage: "Size must be higher than 0",
+      }); 
       return false;
     }
 
-    setEmojiSizeError("");
-    setEmojiSizeIsValid(true);
+    setEmojiSizeValid({ isValid: true, errorMessage: "" }); 
     return true;
   };
 
@@ -395,8 +405,8 @@ export default function Home() {
     label={EMOJI_SIZE_TEXT_INPUT_PLACEHOLDER}
     setTextState={setEmojiSize}
     value={emojiSize}
-    error={emojiSizeError}
-    showError={!emojiSizeIsValid}
+    error={emojiSizeValid.errorMessage}
+    showError={!emojiSizeValid.isValid}
     onChange={onEmojiSizeChange}
   />
 
@@ -557,8 +567,10 @@ export default function Home() {
                     text={"Clear"}
                     className={btnStyles.clear}
                     onClick={() => {
-                      setEmojiSize("");
-                      setEmojiSizeIsValid(true);
+                      setEmojiSizeValid({
+                        isValid: true,
+                        errorMessage: "",
+                      }); 
                       setSecondaryEmoji("");
                       setColorState("");
                     }}
