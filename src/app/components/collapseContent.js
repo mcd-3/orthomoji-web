@@ -2,10 +2,10 @@ import { useCollapse } from 'react-collapsed'
 import Image from 'next/image';
 
 import styles from './../styles/components/collapse-content.module.css';
-import { nunito } from '../assets/fonts.js';
+import { nunito } from '/public/fonts/fonts.js';
 
-import arrowDown from './../assets/arrow-down.svg';
-import arrowRight from './../assets/arrow-right.svg';
+import arrowDown from '/public/icons/arrow-down.svg';
+import arrowRight from '/public/icons/arrow-right.svg';
 
 export default function CollapseContent({
   children,

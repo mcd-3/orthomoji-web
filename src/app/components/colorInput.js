@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { useWindowResize } from './../hooks/useWindowResize.js';
 import styles from './../styles/components/color-input.module.css';
 
-import { nunito } from './../assets/fonts.js';
+import { nunito } from '/public/fonts/fonts.js';
 
 export default function ColorInput({
   placeholder = "Color...",

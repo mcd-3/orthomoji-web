@@ -31,11 +31,11 @@ import { wait } from './utils/wait.js';
 import { getImageName } from './utils/images.js';
 
 import paintIcon from '/public/icons/instant-picture.svg';
-import generateIcon from './assets/pen.svg';
-import downloadIcon from './assets/download.svg';
-import loadingIcon from './assets/loading.svg';
-import errorIcon from './assets/close-circle.svg';
-import clearIcon from './assets/trash.svg';
+import generateIcon from '/public/icons/pen.svg';
+import downloadIcon from '/public/icons/download.svg';
+import loadingIcon from '/public/icons/loading.svg';
+import errorIcon from '/public/icons/close-circle.svg';
+import clearIcon from '/public/icons/trash.svg';
 
 const CANVAS_ID = 'main-canvas';
 const EMOJI_SIZE_DEFAULT = 24;

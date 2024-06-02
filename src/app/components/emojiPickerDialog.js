@@ -5,8 +5,8 @@ import styles from './../styles/components/emoji-picker.module.css';
 import EmojiPicker from 'emoji-picker-react';
 import Button from './../components/button.js';
 
-import cancelIcon from './../assets/close-rectangle.svg';
-import cancelCircle from './../assets/close-circle.svg';
+import cancelIcon from '/public/icons/close-rectangle.svg';
+import cancelCircle from '/public/icons/close-circle.svg';
 import btnStyles from './../styles/components/button.module.css';
 
 /**
