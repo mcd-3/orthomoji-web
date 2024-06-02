@@ -23,6 +23,7 @@ import Image from 'next/image';
 
 import { Orthomoji } from 'orthomoji-dom';
 import { areEmojisMatching, isFontBig } from './utils/warningCheck.js';
+import { wait } from './utils/wait.js';
 
 import paintIcon from './assets/instant-picture.svg';
 import generateIcon from './assets/pen.svg';
@@ -86,16 +87,6 @@ export default function Home() {
         window.removeEventListener('resize', handleWindowSizeChange);
     }
 }, []);
-
-  /**
-   * Pauses execution for a set amount of time
-   * 
-   * @param {number} ms - Amount of time in milliseconds to pause for
-   * @returns {Promise}
-   */
-  const wait = (ms) => {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
 
   /**
    * Generates a name for the downloaded canvas image file
