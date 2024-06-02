@@ -115,28 +115,6 @@ export default function Home() {
   }
 
   /**
-   * Displays the emoji picker dialog
-   */
-  const displayEmojiPickerDialog = () => { setEmojiPickerVisible(true); }
-
-  /**
-   * Dismisses the emoji picker dialog
-   */
-  const dismissEmojiPickerDialog = () => { setEmojiPickerVisible(false); }
-
-  /**
-   * Displays the secondary emoji picker dialog
-   */
-  const displaySecondaryEmojiPickerDialog = () => { setSecondaryEmojiPickerVisible(true); }
-
-  /**
-   * Dismisses the secondary emoji picker dialog
-   */
-  const dismissSecondaryEmojiPickerDialog = () => { setSecondaryEmojiPickerVisible(false); }
-
-
-
-  /**
    * Sets an error for an input
    * Does not display the error; the error will need to be displayed separately
    * 
@@ -285,7 +263,7 @@ export default function Home() {
   const onEmojiSelect = (emojiData, event) => {
     setEmoji(emojiData.emoji);
     validateEmoji(emojiData.emoji);
-    dismissEmojiPickerDialog();
+    setEmojiPickerVisible(false);
   }
 
   /**
@@ -297,7 +275,7 @@ export default function Home() {
     const onSecondaryEmojiSelect = (emojiData, event) => {
       setSecondaryEmoji(emojiData.emoji);
       validateEmoji(emojiData.emoji);
-      dismissSecondaryEmojiPickerDialog();
+      setSecondaryEmojiPickerVisible(false);
     }
 
   /**
@@ -430,10 +408,10 @@ export default function Home() {
   return (
     <main className='main'>
       {emojiPickerVisible &&
-        <EmojiPickerDialog onEmojiClick={onEmojiSelect} onDismiss={dismissEmojiPickerDialog} />
+        <EmojiPickerDialog onEmojiClick={onEmojiSelect} onDismiss={() => setEmojiPickerVisible(false)} />
       }
       {secondaryEmojiPickerVisible &&
-        <EmojiPickerDialog onEmojiClick={onSecondaryEmojiSelect} onDismiss={dismissSecondaryEmojiPickerDialog} />
+        <EmojiPickerDialog onEmojiClick={onSecondaryEmojiSelect} onDismiss={() => setSecondaryEmojiPickerVisible(false)} />
       }
       <div className='content-container'>
         <NavBar title={"Orthomoji 🖌️"} github={"https://github.com/mcd-3/orthomoji-web"} />
@@ -499,7 +477,7 @@ export default function Home() {
               <div className={styles["main-text-input-container"]}>
                 { mainTextInput }
               </div>
-              <div className={styles["main-emoji-input-container"]} onClick={displayEmojiPickerDialog}>
+              <div className={styles["main-emoji-input-container"]} onClick={() => setEmojiPickerVisible(true)}>
                 { mainEmojiInput }
               </div>
             </div>
@@ -511,7 +489,7 @@ export default function Home() {
                 </div>
               </div>
               <div className={styles.row}>
-                <div className={styles["main-emoji-input-container"]} onClick={displayEmojiPickerDialog}>
+                <div className={styles["main-emoji-input-container"]} onClick={() => setEmojiPickerVisible(true)}>
                   { mainEmojiInput }
                 </div>
               </div>
@@ -539,7 +517,7 @@ export default function Home() {
                     <div className={styles["emoji-size-container"]}>
                       { emojiSizeInput }
                     </div>
-                    <div className={styles["secondary-emoji-container"]} onClick={displaySecondaryEmojiPickerDialog}>
+                    <div className={styles["secondary-emoji-container"]} onClick={() => setSecondaryEmojiPickerVisible(true)}>
                       { secondaryEmojiInput }
                     </div>
                   </div>
@@ -551,7 +529,7 @@ export default function Home() {
                     </div>
                   </div>
                   <div className={styles["large-row"]}>
-                    <div className={styles["secondary-emoji-container"]} onClick={displaySecondaryEmojiPickerDialog}>
+                    <div className={styles["secondary-emoji-container"]} onClick={() => setSecondaryEmojiPickerVisible(true)}>
                       { secondaryEmojiInput }
                     </div>
                   </div>
