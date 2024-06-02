@@ -44,6 +44,7 @@ const setError = (message, isValid, type) => {
  * Validate text for text art generation
  * 
  * @param {string} text - Text to validate
+ * @param {state} setTextValid - React state to set valid text
  * @returns {boolean} True if valid, false if not
  */
 const validateText = ({
@@ -87,6 +88,7 @@ const validateText = ({
  * Validate emoji character(s) for text art generation
  * 
  * @param {string} text - Emoji character(s) to validate
+ * @param {state} setEmojiValid - React state to set valid emoji
  * @returns {boolean} True if valid, false if not
  */
 const validateEmoji = ({
@@ -112,6 +114,7 @@ const validateEmoji = ({
  * Validate emoji size for text art generation
  * 
  * @param {string} size - Emoji size to validate
+ * @param {state} setEmojiSizeValid - React state to set valid emoji size
  * @returns {boolean} True if valid, false if not
  */
 const validateEmojiSize = ({
