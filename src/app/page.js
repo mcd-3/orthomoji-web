@@ -71,6 +71,8 @@ export default function Home() {
   const isDesktop = width > 768;
   const isWarningVisible = (isExpanded && (areEmojisMatching(emoji, secondaryEmoji) || isFontBig(emojiSize)));
 
+  const colourPickerClass = isDesktop ? "medium-row" : "large-row";
+
   const canvas = <canvas id={CANVAS_ID} className="canvas"></canvas>;
 
   useEffect(() => {
@@ -562,7 +564,7 @@ export default function Home() {
                 </div>
               }
               <br/>
-              <div className={styles["large-row"]}>
+              <div className={styles[colourPickerClass]}>
                 <ColorInput
                   placeholder="Background..."
                   colorState={colorState}

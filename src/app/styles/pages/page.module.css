@@ -60,6 +60,13 @@
   margin: auto;
 }
 
+.medium-row {
+  width: 75%;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+}
+
 .main-text-input-container {
   width: 72%;
 }
@@ -132,6 +139,10 @@
   }
 
   .large-row {
+    padding-top: 4px;
+  }
+
+  .medium-row {
     padding-top: 4px;
   }
 
