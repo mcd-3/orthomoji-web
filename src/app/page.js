@@ -8,6 +8,7 @@ import { Orthomoji } from 'orthomoji-dom';
 import { areEmojisMatching, isFontBig } from './utils/warningCheck.js';
 import { wait } from './utils/wait.js';
 import { getImageName } from './utils/images.js';
+import { validateText, validateEmoji, validateEmojiSize } from './utils/validation.js';
 
 // Styles
 import styles from './styles/pages/page.module.css'
@@ -55,12 +56,6 @@ import {
   SECONDARY_EMOJI_TEXT_INPUT_PLACEHOLDER_MOBILE,
   CANVAS_EMPTY,
   ERROR_TEXT_EMPTY,
-  ERROR_30_CHAR_LIMIT,
-  ERROR_NON_ALPHA_NUMERIC,
-  ERROR_PICK_EMOJI,
-  ERROR_SIZE_VALID_NUMBER,
-  ERROR_SIZE_OVER_128,
-  ERROR_LOWER_THAN_0,
   ERROR_GENERATING_TEXT,
   GENERATING,
   BUTTON_GENERATE,
@@ -121,136 +116,6 @@ export default function Home() {
   const canvas = <canvas id={CANVAS_ID} className="canvas"></canvas>;
 
   /**
-   * Sets an error for an input
-   * Does not display the error; the error will need to be displayed separately
-   * 
-   * @param {string} message - Error message to display
-   * @param {boolean} isValid - Flag to show error message
-   * @param {string} type - Type of input. Can be either 'text' or 'emoji'
-   * @returns {boolean} isValid
-   */
-  const showErrorInput = (message, isValid, type) => {
-    if (type !== "text" && type !== "emoji") {
-      throw new Error(`${type} is not valid. Use 'text' or 'emoji'`);
-    }
-
-    if (type === "text") {
-      setTextValid({
-        isValid,
-        errorMessage: message,
-      })
-    } else if (type === "emoji") {
-      setEmojiValid({
-        isValid,
-        errorMessage: message
-      });
-    }
-
-    return isValid;
-  }
-
-  /**
-   * Validate text for text art generation
-   * 
-   * @param {string} text - Text to validate
-   * @returns {boolean} True if valid, false if not
-   */
-  const validateText = (text) => {
-    const supportedCharsRegex = /[^a-z0-9 ,.?!:'"\n]/ig;
-    const typeText = "text";
-
-    if (text.length > 30) {
-      return showErrorInput(
-        ERROR_30_CHAR_LIMIT,
-        false,
-        typeText
-      );
-    }
-
-    if (text.trim() == "") {
-      return showErrorInput(
-        ERROR_TEXT_EMPTY,
-        false,
-        typeText
-      );
-    }
-
-    if (supportedCharsRegex.test(text.toLowerCase())) {
-      return showErrorInput(
-        ERROR_NON_ALPHA_NUMERIC,
-        false,
-        typeText
-      );
-    }
-
-    return showErrorInput("", true, typeText);
-  }
-
-  /**
-   * Validate emoji character(s) for text art generation
-   * 
-   * @param {string} text - Emoji character(s) to validate
-   * @returns {boolean} True if valid, false if not
-   */
-  const validateEmoji = (emoji) => {
-    if (emoji.trim() == "") {
-      setEmojiValid({
-        isValid: false,
-        errorMessage: ERROR_PICK_EMOJI,
-      });
-      return false;
-    }
-
-    setEmojiValid({
-      isValid: true,
-      errorMessage: "",
-    });
-    return true;
-  }
-
-  /**
-   * Validate emoji size for text art generation
-   * 
-   * @param {string} size - Emoji size to validate
-   * @returns {boolean} True if valid, false if not
-   */
-  const validateEmojiSize = (size) => {
-    const validNumberRegex = /^-?\d*\.?\d+$/
-    if (size == "") {
-      setEmojiSizeValid({
-        isValid: true,
-        errorMessage: "",
-      });
-      return true;
-    } else if (!validNumberRegex.test(size)) {
-      setEmojiSizeValid({
-        isValid: false,
-        errorMessage: ERROR_SIZE_VALID_NUMBER,
-      }); 
-      return false;
-    }
-
-    if (size > 128) {
-      setEmojiSizeValid({
-        isValid: false,
-        errorMessage: ERROR_SIZE_OVER_128,
-      }); 
-      return false;
-    }
-
-    if (size < 1) {
-      setEmojiSizeValid({
-        isValid: false,
-        errorMessage: ERROR_LOWER_THAN_0,
-      }); 
-      return false;
-    }
-
-    setEmojiSizeValid({ isValid: true, errorMessage: "" }); 
-    return true;
-  };
-
-  /**
    * Displays an error to the canvas
    *
    * @param {string} error - Error messaage to log
@@ -282,8 +147,8 @@ export default function Home() {
    */
   const generateTextArt = () => {
     // Validate Text + Emoji
-    const isTextValid = validateText(text);
-    const isEmojiValid = validateEmoji(emoji);
+    const isTextValid = validateText({ text, setTextValid });
+    const isEmojiValid = validateEmoji({ emoji, setEmojiValid });
 
     if (!isTextValid || !isEmojiValid) {
       return false;
@@ -291,7 +156,7 @@ export default function Home() {
 
     // Advanced options validation
     if (useAdvancedFeatures) {
-      const isEmojiSizeValid = validateEmojiSize(emojiSize);
+      const isEmojiSizeValid = validateEmojiSize({ size: emojiSize, setEmojiSizeValid });
       if (!isEmojiSizeValid) {
         return false;
       }
@@ -354,7 +219,7 @@ export default function Home() {
     showError={!textValid.isValid}
     onChange={(event) => {
       const text = event.target.value;
-      validateText(text);
+      validateText({ text, setTextValid });
     }}
     maxLength={999}
   />
@@ -379,7 +244,7 @@ export default function Home() {
     showError={!emojiSizeValid.isValid}
     onChange={(event) => {
       const size = event.target.value;
-      validateEmojiSize(size);
+      validateEmojiSize({ size, setEmojiSizeValid });
     }}
   />
 
@@ -400,7 +265,7 @@ export default function Home() {
         <EmojiPickerDialog
           onEmojiClick={(emojiData, event) => {
             setEmoji(emojiData.emoji);
-            validateEmoji(emojiData.emoji);
+            validateEmoji({ emoji: emojiData.emoji, setEmojiValid });
             setEmojiPickerVisible(false);
           }}
           onDismiss={() => setEmojiPickerVisible(false)}
@@ -410,7 +275,7 @@ export default function Home() {
         <EmojiPickerDialog
           onEmojiClick={(emojiData, event) => {
             setSecondaryEmoji(emojiData.emoji);
-            validateEmoji(emojiData.emoji);
+            validateEmoji({ emoji: emojiData.emoji, setEmojiValid });
             setSecondaryEmojiPickerVisible(false);
           }}
           onDismiss={() => setSecondaryEmojiPickerVisible(false)}
