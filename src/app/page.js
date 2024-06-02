@@ -245,50 +245,6 @@ export default function Home() {
   };
 
   /**
-   * Sets and validates text
-   *
-   * @param {*} event - Input event
-   */
-  const onTextChange = (event) => {
-    const text = event.target.value;
-    validateText(text);
-  };
-
-  /**
-   * Sets and validates emoji
-   *
-   * @param {object} emojiData - Object containing emoji data
-   * @param {*} event - Input event
-   */
-  const onEmojiSelect = (emojiData, event) => {
-    setEmoji(emojiData.emoji);
-    validateEmoji(emojiData.emoji);
-    setEmojiPickerVisible(false);
-  }
-
-  /**
-   * Sets and validates emoji
-   *
-   * @param {object} emojiData - Object containing emoji data
-   * @param {*} event - Input event
-   */
-    const onSecondaryEmojiSelect = (emojiData, event) => {
-      setSecondaryEmoji(emojiData.emoji);
-      validateEmoji(emojiData.emoji);
-      setSecondaryEmojiPickerVisible(false);
-    }
-
-  /**
-   * Sets and validates emoji size
-   *
-   * @param {*} event - Input event
-   */
-  const onEmojiSizeChange = (event) => {
-    const size = event.target.value;
-    validateEmojiSize(size);
-  };
-
-  /**
    * Downloads the content of the canvas as a png image
    */
   const downloadTextArt = () => {
@@ -369,7 +325,10 @@ export default function Home() {
     value={text}
     error={textValid.errorMessage}
     showError={!textValid.isValid}
-    onChange={onTextChange}
+    onChange={(event) => {
+      const text = event.target.value;
+      validateText(text);
+    }}
     maxLength={999}
   />
 
@@ -391,7 +350,10 @@ export default function Home() {
     value={emojiSize}
     error={emojiSizeValid.errorMessage}
     showError={!emojiSizeValid.isValid}
-    onChange={onEmojiSizeChange}
+    onChange={(event) => {
+      const size = event.target.value;
+      validateEmojiSize(size);
+    }}
   />
 
   // Input to use to add secondary/spacing emojis
@@ -408,10 +370,24 @@ export default function Home() {
   return (
     <main className='main'>
       {emojiPickerVisible &&
-        <EmojiPickerDialog onEmojiClick={onEmojiSelect} onDismiss={() => setEmojiPickerVisible(false)} />
+        <EmojiPickerDialog
+          onEmojiClick={(emojiData, event) => {
+            setEmoji(emojiData.emoji);
+            validateEmoji(emojiData.emoji);
+            setEmojiPickerVisible(false);
+          }}
+          onDismiss={() => setEmojiPickerVisible(false)}
+        />
       }
       {secondaryEmojiPickerVisible &&
-        <EmojiPickerDialog onEmojiClick={onSecondaryEmojiSelect} onDismiss={() => setSecondaryEmojiPickerVisible(false)} />
+        <EmojiPickerDialog
+          onEmojiClick={(emojiData, event) => {
+            setSecondaryEmoji(emojiData.emoji);
+            validateEmoji(emojiData.emoji);
+            setSecondaryEmojiPickerVisible(false);
+          }}
+          onDismiss={() => setSecondaryEmojiPickerVisible(false)}
+        />
       }
       <div className='content-container'>
         <NavBar title={"Orthomoji 🖌️"} github={"https://github.com/mcd-3/orthomoji-web"} />
