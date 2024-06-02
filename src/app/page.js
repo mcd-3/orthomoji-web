@@ -49,26 +49,34 @@ export default function Home() {
   const [canvasMessage, setCanvasMessage] = useState("No words generated");
   const [canvasIcon, setCanvasIcon] = useState(paintIcon);
 
-  const [emojiSizeValid, setEmojiSizeValid] = useState({
-    isValid: true,
-    errorMessage: ""
-  });
-
-  const [textIsValid, setTextIsValid] = useState(true);
-  const [emojiIsValid, setEmojiIsValid] = useState(true);
-  const [textError, setTextError] = useState("Text must not be empty");
-  const [emojiError, setEmojiError] = useState("");
   const [text, setText] = useState("");
   const [emoji, setEmoji] = useState("");
   const [emojiSize, setEmojiSize] = useState("");
   const [secondaryEmoji, setSecondaryEmoji] = useState("");
   const [colorState, setColorState] = useState("");
 
+  const [textValid, setTextValid] = useState({
+    isValid: true,
+    errorMessage: "Text must not be empty",
+  });
+
+  const [emojiValid, setEmojiValid] = useState({
+    isValid: true,
+    errorMessage: "",
+  });
+
+  const [emojiSizeValid, setEmojiSizeValid] = useState({
+    isValid: true,
+    errorMessage: "",
+  });
+
   const [isExpanded, setExpanded] = useState(false);
   const [useAdvancedFeatures, setUseAdvancedFeatures] = useState(false);
 
-  const [generateActive, setGenerateActive] = useState(true);
-  const [downloadActive, setDownloadActive] = useState(false);
+  const [buttonActive, setButtonActive] = useState({
+    generate: true,
+    download: false,
+  })
 
   const [textArt, setTextArt] = useState("");
 
@@ -152,11 +160,15 @@ export default function Home() {
     }
 
     if (type === "text") {
-      setTextError(message);
-      setTextIsValid(isValid);
+      setTextValid({
+        isValid,
+        errorMessage: message,
+      })
     } else if (type === "emoji") {
-      setEmojiError(message);
-      setEmojiIsValid(isValid);
+      setEmojiValid({
+        isValid,
+        errorMessage: message
+      });
     }
 
     return isValid;
@@ -207,13 +219,17 @@ export default function Home() {
    */
   const validateEmoji = (emoji) => {
     if (emoji.trim() == "") {
-      setEmojiError("You must pick an emoji");
-      setEmojiIsValid(false);
+      setEmojiValid({
+        isValid: false,
+        errorMessage: "You must pick an emoji",
+      });
       return false;
     }
 
-    setEmojiError("");
-    setEmojiIsValid(true);
+    setEmojiValid({
+      isValid: true,
+      errorMessage: "",
+    });
     return true;
   }
 
@@ -362,18 +378,17 @@ export default function Home() {
       orthomoji.generate();
 
       // Simulate loading since generation is instant
-      setGenerateActive(false);
+      setButtonActive({...buttonActive, generate: false });
       wait(2500).then(() => {
         let canvasHTML = document.getElementById(CANVAS_ID);
         let url = canvasHTML.toDataURL("image/png");
         setShowCanvasImage(false);
         setTextArt(url);
-        setDownloadActive(true);
-        setGenerateActive(true);
+        setButtonActive({generate: true, download: true });
       });
     } catch (e) {
       console.log(e);
-      setDownloadActive(false);
+      setButtonActive({...buttonActive, download: false });
       createCanvasMessage("An error has occured", "error");
     }
   };
@@ -383,8 +398,8 @@ export default function Home() {
     label={MAIN_TEXT_INPUT_PLACEHOLDER}
     setTextState={setText}
     value={text}
-    error={textError}
-    showError={!textIsValid}
+    error={textValid.errorMessage}
+    showError={!textValid.isValid}
     onChange={onTextChange}
     maxLength={999}
   />
@@ -395,8 +410,8 @@ export default function Home() {
     setTextState={setEmoji}
     readOnly={true}
     value={emoji}
-    error={emojiError}
-    showError={!emojiIsValid}
+    error={emojiValid.errorMessage}
+    showError={!emojiValid.isValid}
     hasClearButton={true}
   />
 
@@ -459,7 +474,7 @@ export default function Home() {
               text={"Generate"}
               className={btnStyles.generate}
               onClick={generateTextArt}
-              disabled={!generateActive}
+              disabled={!buttonActive.generate}
             />
           </div>
           <div className={styles["button-column-right"]}>
@@ -468,7 +483,7 @@ export default function Home() {
               text={"Download"}
               className={btnStyles.download}
               onClick={downloadTextArt}
-              disabled={!downloadActive}
+              disabled={!buttonActive.download}
             />
           </div>
         </div>
