@@ -39,18 +39,44 @@ import clearIcon from '/public/icons/trash.svg';
 
 const CANVAS_ID = 'main-canvas';
 const EMOJI_SIZE_DEFAULT = 24;
-const MAIN_TEXT_INPUT_PLACEHOLDER = "Enter text here...";
-const EMOJI_TEXT_INPUT_PLACEHOLDER = "😃❤️🎉...";
-const EMOJI_SIZE_TEXT_INPUT_PLACEHOLDER = "Emoji Size...";
-const SECONDARY_EMOJI_TEXT_INPUT_PLACEHOLDER = "Secondary Emoji...";
-const SECONDARY_EMOJI_TEXT_INPUT_PLACEHOLDER_MOBILE = "2nd Emoji...";
+
+import {
+  APP_NAME_TITLE,
+  APP_REPOSITORY,
+  APP_DESCRIPTION,
+  APP_AUTHOR,
+  APP_YEAR,
+  APP_LICENSE_URL,
+  MAIN_TEXT_INPUT_PLACEHOLDER,
+  EMOJI_TEXT_INPUT_PLACEHOLDER,
+  EMOJI_SIZE_TEXT_INPUT_PLACEHOLDER,
+  SECONDARY_EMOJI_TEXT_INPUT_PLACEHOLDER,
+  SECONDARY_EMOJI_TEXT_INPUT_PLACEHOLDER_MOBILE,
+  CANVAS_EMPTY,
+  ERROR_TEXT_EMPTY,
+  ERROR_30_CHAR_LIMIT,
+  ERROR_NON_ALPHA_NUMERIC,
+  ERROR_PICK_EMOJI,
+  ERROR_SIZE_VALID_NUMBER,
+  ERROR_SIZE_OVER_128,
+  ERROR_LOWER_THAN_0,
+  ERROR_GENERATING_TEXT,
+  GENERATING,
+  BUTTON_GENERATE,
+  BUTTON_DOWNLOAD,
+  BUTTON_CLEAR,
+  HEADER_TITLE,
+  ADVANCED_FEATURES,
+  ADVANCED_FEATURES_EXTENDED,
+  BACKGROUND
+} from './text.json';
 
 export default function Home() {
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
   const [secondaryEmojiPickerVisible, setSecondaryEmojiPickerVisible] = useState(false);
 
   const { canvasState, setCanvasState } = useCanvasState({
-    message: "No words generated",
+    message: CANVAS_EMPTY,
     icon: paintIcon,
     showImage: true
   });
@@ -63,7 +89,7 @@ export default function Home() {
 
   const [textValid, setTextValid] = useState({
     isValid: true,
-    errorMessage: "Text must not be empty",
+    errorMessage: ERROR_TEXT_EMPTY,
   });
 
   const [emojiValid, setEmojiValid] = useState({
@@ -135,7 +161,7 @@ export default function Home() {
 
     if (text.length > 30) {
       return showErrorInput(
-        "Text must be 30 characters or less",
+        ERROR_30_CHAR_LIMIT,
         false,
         typeText
       );
@@ -143,7 +169,7 @@ export default function Home() {
 
     if (text.trim() == "") {
       return showErrorInput(
-        "Text must not be empty",
+        ERROR_TEXT_EMPTY,
         false,
         typeText
       );
@@ -151,7 +177,7 @@ export default function Home() {
 
     if (supportedCharsRegex.test(text.toLowerCase())) {
       return showErrorInput(
-        "Text must only contain alpha-numeric characters and/or ,.?!:'\" ",
+        ERROR_NON_ALPHA_NUMERIC,
         false,
         typeText
       );
@@ -170,7 +196,7 @@ export default function Home() {
     if (emoji.trim() == "") {
       setEmojiValid({
         isValid: false,
-        errorMessage: "You must pick an emoji",
+        errorMessage: ERROR_PICK_EMOJI,
       });
       return false;
     }
@@ -199,7 +225,7 @@ export default function Home() {
     } else if (!validNumberRegex.test(size)) {
       setEmojiSizeValid({
         isValid: false,
-        errorMessage: "Size must be a valid number",
+        errorMessage: ERROR_SIZE_VALID_NUMBER,
       }); 
       return false;
     }
@@ -207,7 +233,7 @@ export default function Home() {
     if (size > 128) {
       setEmojiSizeValid({
         isValid: false,
-        errorMessage: "Size must be lower than 128",
+        errorMessage: ERROR_SIZE_OVER_128,
       }); 
       return false;
     }
@@ -215,7 +241,7 @@ export default function Home() {
     if (size < 1) {
       setEmojiSizeValid({
         isValid: false,
-        errorMessage: "Size must be higher than 0",
+        errorMessage: ERROR_LOWER_THAN_0,
       }); 
       return false;
     }
@@ -234,7 +260,7 @@ export default function Home() {
     setButtonActive({...buttonActive, download: false });
     setCanvasState({
       ...canvasState,
-      message: "Error generating text",
+      message: ERROR_GENERATING_TEXT,
       icon: errorIcon,
     });
   };
@@ -272,7 +298,7 @@ export default function Home() {
     }
 
     setCanvasState({
-      message: "Generating...",
+      message: GENERATING,
       icon: loadingIcon,
       showImage: true,
     })
@@ -391,8 +417,8 @@ export default function Home() {
         />
       }
       <div className='content-container'>
-        <NavBar title={"Orthomoji 🖌️"} github={"https://github.com/mcd-3/orthomoji-web"} />
-        <TitleBar src={""} subtext={"Words made of emoji!"} />
+        <NavBar title={APP_NAME_TITLE} github={APP_REPOSITORY} />
+        <TitleBar src={""} subtext={APP_DESCRIPTION} />
         <br />
         <ScaleContainer>
           {canvasState.showImage &&
@@ -417,7 +443,7 @@ export default function Home() {
           <div className={styles["button-column-left"]}>
             <Button
               iconSrc={generateIcon}
-              text={"Generate"}
+              text={BUTTON_GENERATE}
               className={btnStyles.generate}
               onClick={generateTextArt}
               disabled={!buttonActive.generate}
@@ -426,7 +452,7 @@ export default function Home() {
           <div className={styles["button-column-right"]}>
             <Button
               iconSrc={downloadIcon}
-              text={"Download"}
+              text={BUTTON_DOWNLOAD}
               className={btnStyles.download}
               onClick={downloadTextArt}
               disabled={!buttonActive.download}
@@ -446,7 +472,7 @@ export default function Home() {
             <br />
         }
         <div className={styles["row-no-padding"]}>
-          <Header text={"Customize your Message"}/>
+          <Header text={HEADER_TITLE}/>
         </div>
         {isDesktop
           ?
@@ -475,8 +501,8 @@ export default function Home() {
         <Spacer />
         <div className={styles.row}>
           <CollapseContent
-            collapsedText="Advanced Features"
-            expandedText="Advanced Features"
+            collapsedText={ADVANCED_FEATURES}
+            expandedText={ADVANCED_FEATURES}
             isExpanded={isExpanded}
             setExpanded={setExpanded}
             onExpandChange={() => {
@@ -486,7 +512,7 @@ export default function Home() {
           >
             <div className={styles["collapsed-container"]}>
               <div className={styles["large-row"]}>
-                <p className={styles["collapsed-disclaimer"]}>Advanced features will only apply if this is expanded!</p>
+                <p className={styles["collapsed-disclaimer"]}>{ADVANCED_FEATURES_EXTENDED}</p>
               </div>
               {isDesktop
                 ?
@@ -515,7 +541,7 @@ export default function Home() {
               <br/>
               <div className={styles[colourPickerClass]}>
                 <ColorInput
-                  placeholder="Background..."
+                  placeholder={BACKGROUND}
                   colorState={colorState}
                   setColorState={setColorState}
                 />
@@ -525,7 +551,7 @@ export default function Home() {
                 <div className={styles["button-column-center"]}>
                   <Button
                     iconSrc={clearIcon}
-                    text={"Clear"}
+                    text={BUTTON_CLEAR}
                     className={btnStyles.clear}
                     onClick={() => {
                       setEmojiSizeValid({
@@ -546,7 +572,7 @@ export default function Home() {
         <br />
         {canvas}
       </div>
-      <Footer author={"Matthew Carvalho-Dagenais"} date={"2023-2024"} licenseHref={"https://github.com/mcd-3/orthomoji-web/blob/main/LICENSE.md"} />
+      <Footer author={APP_AUTHOR} date={APP_YEAR} licenseHref={APP_LICENSE_URL} />
     </main>
   )
 }
