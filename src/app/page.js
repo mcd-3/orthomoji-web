@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useWindowResize } from './hooks/useWindowResize.js';
+import { useCanvasState } from "./hooks/useCnvasState.js";
 
 import styles from './styles/pages/page.module.css'
 import btnStyles from './styles/components/button.module.css';
@@ -29,7 +30,7 @@ import { areEmojisMatching, isFontBig } from './utils/warningCheck.js';
 import { wait } from './utils/wait.js';
 import { getImageName } from './utils/images.js';
 
-import paintIcon from './assets/instant-picture.svg';
+import paintIcon from '/public/icons/instant-picture.svg';
 import generateIcon from './assets/pen.svg';
 import downloadIcon from './assets/download.svg';
 import loadingIcon from './assets/loading.svg';
@@ -48,9 +49,11 @@ export default function Home() {
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
   const [secondaryEmojiPickerVisible, setSecondaryEmojiPickerVisible] = useState(false);
 
-  const [showCanvasImage, setShowCanvasImage] = useState(true);
-  const [canvasMessage, setCanvasMessage] = useState("No words generated");
-  const [canvasIcon, setCanvasIcon] = useState(paintIcon);
+  const { canvasState, setCanvasState } = useCanvasState({
+    message: "No words generated",
+    icon: paintIcon,
+    showImage: true
+  });
 
   const [text, setText] = useState("");
   const [emoji, setEmoji] = useState("");
@@ -90,29 +93,6 @@ export default function Home() {
   const colourPickerClass = isDesktop ? "medium-row" : "large-row";
 
   const canvas = <canvas id={CANVAS_ID} className="canvas"></canvas>;
-
-  /**
-   * Sets a message and icon to the canvas
-   * Does not display the message; the error will need to be displayed separately
-   * 
-   * @param {string} message - Message to display
-   * @param {SVG} icon - SVG icon to display
-   */
-  const createCanvasMessage = (message, icon) => {
-    setCanvasMessage(message);
-    switch (icon) {
-      case "paint":
-        setCanvasIcon(paintIcon);
-        break;
-      case "loading":
-        setCanvasIcon(loadingIcon);
-        break;
-      case "error":
-      default:
-        setCanvasIcon(errorIcon);
-        break;
-    }
-  }
 
   /**
    * Sets an error for an input
@@ -245,6 +225,21 @@ export default function Home() {
   };
 
   /**
+   * Displays an error to the canvas
+   *
+   * @param {string} error - Error messaage to log
+   */
+  const setCanvasError = (error) => {
+    console.error(error);
+    setButtonActive({...buttonActive, download: false });
+    setCanvasState({
+      ...canvasState,
+      message: "Error generating text",
+      icon: errorIcon,
+    });
+  };
+
+  /**
    * Downloads the content of the canvas as a png image
    */
   const downloadTextArt = () => {
@@ -276,8 +271,11 @@ export default function Home() {
       }
     }
 
-    setShowCanvasImage(true);
-    createCanvasMessage("Generating...", "loading");
+    setCanvasState({
+      message: "Generating...",
+      icon: loadingIcon,
+      showImage: true,
+    })
 
     try {
       const emojiSizeFinal = 
@@ -307,14 +305,17 @@ export default function Home() {
       wait(2500).then(() => {
         let canvasHTML = document.getElementById(CANVAS_ID);
         let url = canvasHTML.toDataURL("image/png");
-        setShowCanvasImage(false);
+        setCanvasState({
+          ...canvasState,
+          showImage: false,
+        });
         setTextArt(url);
         setButtonActive({generate: true, download: true });
+      }).catch((err) => {
+        setCanvasError(`An error has occured. Please review the below stack trace:\n${err}`);
       });
     } catch (e) {
-      console.log(e);
-      setButtonActive({...buttonActive, download: false });
-      createCanvasMessage("An error has occured", "error");
+      setCanvasError(`An error has occured. Please review the below stack trace:\n${e}`);
     }
   };
 
@@ -394,15 +395,15 @@ export default function Home() {
         <TitleBar src={""} subtext={"Words made of emoji!"} />
         <br />
         <ScaleContainer>
-          {showCanvasImage &&
+          {canvasState.showImage &&
             <CanvasMessage
-              message={canvasMessage}
-              iconSrc={canvasIcon}
+              message={canvasState.message}
+              iconSrc={canvasState.icon}
               iconAlt="No image generated"
             />
           }
 
-          {!showCanvasImage &&
+          {!canvasState.showImage &&
             <div className={styles["canvas-background"]}>
               <Image
                 src={textArt}
