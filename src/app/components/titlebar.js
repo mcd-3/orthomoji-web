@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import styles from './../styles/components/titlebar.module.css';
-import orthomoji_title from '/public/orthomoji_title.png';
+import orthomoji_title from '/public/images/orthomoji_title.png';
 
 /**
  * Title bar that shows the webapp's logo and some text
