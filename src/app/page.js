@@ -589,7 +589,7 @@ export default function Home() {
         <br />
         {canvas}
       </div>
-      <Footer author={"Matthew Carvalho-Dagenais"} date={"2023"} licenseHref={"https://github.com/mcd-3/orthomoji-web/blob/main/LICENSE.md"} />
+      <Footer author={"Matthew Carvalho-Dagenais"} date={"2023-2024"} licenseHref={"https://github.com/mcd-3/orthomoji-web/blob/main/LICENSE.md"} />
     </main>
   )
 }
