@@ -7,20 +7,22 @@ import styles from './styles/pages/page.module.css'
 import btnStyles from './styles/components/button.module.css';
 import './globals.css';
 
-import NavBar from './components/navbar.js';
-import Footer from './components/footer.js';
-import TitleBar from './components/titlebar.js';
-import ScaleContainer from './components/scaleContainer.js';
-import CanvasMessage from './components/canvasMessage.js';
-import Button from './components/button.js';
-import TextInput from './components/textInput.js';
-import Header from './components/header.js';
-import EmojiPickerDialog from './components/emojiPickerDialog.js';
-import CollapseContent from "./components/collapseContent.js";
-import Spacer from "./components/spacer.js";
-import ColorInput from "./components/colorInput.js";
-import Warning from "./components/warning";
 import Image from 'next/image';
+import {
+  NavBar,
+  Footer,
+  TitleBar,
+  ScaleContainer,
+  CanvasMessage,
+  Button,
+  TextInput,
+  Header,
+  EmojiPickerDialog,
+  CollapseContent,
+  Spacer,
+  ColorInput,
+  Warning,
+} from './components';
 
 import { Orthomoji } from 'orthomoji-dom';
 import { areEmojisMatching, isFontBig } from './utils/warningCheck.js';
