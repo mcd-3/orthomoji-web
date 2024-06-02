@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useWindowResize } from './../hooks/useWindowResize.js';
 import Image from 'next/image';
 
 import styles from './../styles/components/emoji-picker.module.css';
@@ -19,21 +19,7 @@ export default function EmojiPickerDialog({
   onDismiss = () => {},
   onEmojiClick = () => {},
 }) {
-  const [width, setWidth] = useState(0);
-
-  useEffect(() => {
-      const handleWindowSizeChange = () => {
-        setWidth(window.innerWidth);
-      }
-
-      setWidth(window.innerWidth);
-      window.addEventListener('resize', handleWindowSizeChange);
-      return () => {
-          window.removeEventListener('resize', handleWindowSizeChange);
-      }
-  }, []);
-
-  const isDesktop = width > 768;
+  const { isDesktop } = useWindowResize();
 
   const noClick = (event) => {
     event.stopPropagation();

@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useWindowResize } from './hooks/useWindowResize.js';
 
 import styles from './styles/pages/page.module.css'
 import btnStyles from './styles/components/button.module.css';
@@ -80,25 +81,13 @@ export default function Home() {
 
   const [textArt, setTextArt] = useState("");
 
-  const [width, setWidth] = useState(0);
-  const isDesktop = width > 768;
+  const { isDesktop } = useWindowResize();
+
   const isWarningVisible = (isExpanded && (areEmojisMatching(emoji, secondaryEmoji) || isFontBig(emojiSize)));
 
   const colourPickerClass = isDesktop ? "medium-row" : "large-row";
 
   const canvas = <canvas id={CANVAS_ID} className="canvas"></canvas>;
-
-  useEffect(() => {
-    const handleWindowSizeChange = () => {
-      setWidth(window.innerWidth);
-    }
-
-    setWidth(window.innerWidth);
-    window.addEventListener('resize', handleWindowSizeChange);
-    return () => {
-        window.removeEventListener('resize', handleWindowSizeChange);
-    }
-  }, []);
 
   /**
    * Sets a message and icon to the canvas
