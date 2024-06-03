@@ -9,6 +9,7 @@ import { areEmojisMatching, isFontBig } from './utils/warningCheck.js';
 import { wait } from './utils/wait.js';
 import { getImageName } from './utils/images.js';
 import { validateText, validateEmoji, validateEmojiSize } from './utils/validation.js';
+import { generateTextInput } from './utils/componentGenerator.js';
 
 // Styles
 import styles from './styles/pages/page.module.css'
@@ -115,6 +116,55 @@ export default function Home() {
   const colourPickerClass = isDesktop ? "medium-row" : "large-row";
   const canvas = <canvas id={CANVAS_ID} className="canvas"></canvas>;
 
+  // Main text input to type text to emojify
+  const mainTextInput = generateTextInput({
+    label: MAIN_TEXT_INPUT_PLACEHOLDER,
+    setTextState: setText,
+    value: text,
+    error: textValid.errorMessage,
+    showError: !textValid.isValid,
+    onChange: (event) => {
+      const text = event.target.value;
+      validateText({ text, setTextValid });
+    },
+    maxLength: 999
+  });
+
+  // Main emoji input to use to make words with emojis
+  const mainEmojiInput = generateTextInput({
+    label: EMOJI_TEXT_INPUT_PLACEHOLDER,
+    setTextState: setEmoji,
+    readOnly: true,
+    value: emoji,
+    error: emojiValid.errorMessage,
+    showError: !emojiValid.isValid,
+    hasClearButton: true,
+  });
+
+  // Input to use to change font size of emojis
+  const emojiSizeInput = generateTextInput({
+    label: EMOJI_SIZE_TEXT_INPUT_PLACEHOLDER,
+    setTextState: setEmojiSize,
+    value: emojiSize,
+    error: emojiSizeValid.errorMessage,
+    showError: !emojiSizeValid.isValid,
+    onChange: (event) => {
+      const size = event.target.value;
+      validateEmojiSize({ size, setEmojiSizeValid });
+    }
+  });
+
+  // Input to use to add secondary/spacing emojis
+  const secondaryEmojiInput = generateTextInput({
+    label: isDesktop ? SECONDARY_EMOJI_TEXT_INPUT_PLACEHOLDER : SECONDARY_EMOJI_TEXT_INPUT_PLACEHOLDER_MOBILE,
+    setTextState: setSecondaryEmoji,
+    readOnly: true,
+    value: secondaryEmoji,
+    error: "",
+    showError: false,
+    hasClearButton: true,
+  });
+
   /**
    * Displays an error to the canvas
    *
@@ -209,55 +259,6 @@ export default function Home() {
       setCanvasError(`An error has occured. Please review the below stack trace:\n${e}`);
     }
   };
-
-  // Main text input to type text to emojify
-  const mainTextInput = <TextInput
-    label={MAIN_TEXT_INPUT_PLACEHOLDER}
-    setTextState={setText}
-    value={text}
-    error={textValid.errorMessage}
-    showError={!textValid.isValid}
-    onChange={(event) => {
-      const text = event.target.value;
-      validateText({ text, setTextValid });
-    }}
-    maxLength={999}
-  />
-
-  // Main emoji input to use to make words with emojis
-  const mainEmojiInput =  <TextInput
-    label={EMOJI_TEXT_INPUT_PLACEHOLDER}
-    setTextState={setEmoji}
-    readOnly={true}
-    value={emoji}
-    error={emojiValid.errorMessage}
-    showError={!emojiValid.isValid}
-    hasClearButton={true}
-  />
-
-  // Input to use to change font size of emojis
-  const emojiSizeInput = <TextInput
-    label={EMOJI_SIZE_TEXT_INPUT_PLACEHOLDER}
-    setTextState={setEmojiSize}
-    value={emojiSize}
-    error={emojiSizeValid.errorMessage}
-    showError={!emojiSizeValid.isValid}
-    onChange={(event) => {
-      const size = event.target.value;
-      validateEmojiSize({ size, setEmojiSizeValid });
-    }}
-  />
-
-  // Input to use to add secondary/spacing emojis
-  const secondaryEmojiInput = <TextInput
-    label={isDesktop ? SECONDARY_EMOJI_TEXT_INPUT_PLACEHOLDER : SECONDARY_EMOJI_TEXT_INPUT_PLACEHOLDER_MOBILE}
-    setTextState={setSecondaryEmoji}
-    readOnly={true}
-    value={secondaryEmoji}
-    error={""}
-    showError={false}
-    hasClearButton={true}
-  />
 
   return (
     <main className='main'>
