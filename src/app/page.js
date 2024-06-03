@@ -4,12 +4,10 @@
 import { useState } from "react";
 import { useWindowResize } from './hooks/useWindowResize.js';
 import { useCanvasState } from "./hooks/useCnvasState.js";
-import { Orthomoji } from 'orthomoji-dom';
 import { areEmojisMatching, isFontBig } from './utils/warningCheck.js';
-import { wait } from './utils/wait.js';
-import { getImageName } from './utils/images.js';
 import { validateText, validateEmoji, validateEmojiSize } from './utils/validation.js';
 import { generateTextInput } from './utils/componentGenerator.js';
+import { downloadTextArt, generateTextArt } from './utils/canvas.js';
 
 // Styles
 import styles from './styles/pages/page.module.css'
@@ -25,7 +23,6 @@ import {
   ScaleContainer,
   CanvasMessage,
   Button,
-  TextInput,
   Header,
   EmojiPickerDialog,
   CollapseContent,
@@ -38,8 +35,6 @@ import {
 import paintIcon from '/public/icons/instant-picture.svg';
 import generateIcon from '/public/icons/pen.svg';
 import downloadIcon from '/public/icons/download.svg';
-import loadingIcon from '/public/icons/loading.svg';
-import errorIcon from '/public/icons/close-circle.svg';
 import clearIcon from '/public/icons/trash.svg';
 
 // Text Strings
@@ -57,8 +52,6 @@ import {
   SECONDARY_EMOJI_TEXT_INPUT_PLACEHOLDER_MOBILE,
   CANVAS_EMPTY,
   ERROR_TEXT_EMPTY,
-  ERROR_GENERATING_TEXT,
-  GENERATING,
   BUTTON_GENERATE,
   BUTTON_DOWNLOAD,
   BUTTON_CLEAR,
@@ -69,7 +62,6 @@ import {
 } from './text.json';
 
 const CANVAS_ID = 'main-canvas';
-const EMOJI_SIZE_DEFAULT = 24;
 
 export default function Home() {
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
@@ -165,101 +157,6 @@ export default function Home() {
     hasClearButton: true,
   });
 
-  /**
-   * Displays an error to the canvas
-   *
-   * @param {string} error - Error messaage to log
-   */
-  const setCanvasError = (error) => {
-    console.error(error);
-    setButtonActive({...buttonActive, download: false });
-    setCanvasState({
-      ...canvasState,
-      message: ERROR_GENERATING_TEXT,
-      icon: errorIcon,
-    });
-  };
-
-  /**
-   * Downloads the content of the canvas as a png image
-   */
-  const downloadTextArt = () => {
-    let canvasHTML = document.getElementById(CANVAS_ID);
-    let url = canvasHTML.toDataURL("image/png");
-    let link = document.createElement('a');
-    link.download = getImageName(text);
-    link.href = url;
-    link.click();
-  };
-
-  /**
-   * Generate the emoji word to the canvas
-   */
-  const generateTextArt = () => {
-    // Validate Text + Emoji
-    const isTextValid = validateText({ text, setTextValid });
-    const isEmojiValid = validateEmoji({ emoji, setEmojiValid });
-
-    if (!isTextValid || !isEmojiValid) {
-      return false;
-    }
-
-    // Advanced options validation
-    if (useAdvancedFeatures) {
-      const isEmojiSizeValid = validateEmojiSize({ size: emojiSize, setEmojiSizeValid });
-      if (!isEmojiSizeValid) {
-        return false;
-      }
-    }
-
-    setCanvasState({
-      message: GENERATING,
-      icon: loadingIcon,
-      showImage: true,
-    })
-
-    try {
-      const emojiSizeFinal = 
-        useAdvancedFeatures && emojiSize !== ""
-          ? parseInt(emojiSize)
-          : EMOJI_SIZE_DEFAULT;
-
-      const orthomoji = new Orthomoji(CANVAS_ID); 
-      orthomoji
-        .setText(text)
-        .setEmoji(emoji)
-        .setEmojiSize(emojiSizeFinal)
-
-      if (useAdvancedFeatures && secondaryEmoji !== "") {
-        orthomoji.setSpaceEmoji(secondaryEmoji);
-      }
-
-      if (useAdvancedFeatures && colorState !== "") {
-        console.log(colorState);
-        orthomoji.setBackgroundStyle(colorState);
-      }
-
-      orthomoji.generate();
-
-      // Simulate loading since generation is instant
-      setButtonActive({...buttonActive, generate: false });
-      wait(2500).then(() => {
-        let canvasHTML = document.getElementById(CANVAS_ID);
-        let url = canvasHTML.toDataURL("image/png");
-        setCanvasState({
-          ...canvasState,
-          showImage: false,
-        });
-        setTextArt(url);
-        setButtonActive({generate: true, download: true });
-      }).catch((err) => {
-        setCanvasError(`An error has occured. Please review the below stack trace:\n${err}`);
-      });
-    } catch (e) {
-      setCanvasError(`An error has occured. Please review the below stack trace:\n${e}`);
-    }
-  };
-
   return (
     <main className='main'>
       {emojiPickerVisible &&
@@ -311,7 +208,25 @@ export default function Home() {
               iconSrc={generateIcon}
               text={BUTTON_GENERATE}
               className={btnStyles.generate}
-              onClick={generateTextArt}
+              onClick={() => {
+                generateTextArt({
+                  canvasId: CANVAS_ID,
+                  text,
+                  setTextValid,
+                  emoji,
+                  setEmojiValid,
+                  emojiSize,
+                  setEmojiSizeValid,
+                  secondaryEmoji,
+                  colorState,
+                  buttonActive,
+                  setButtonActive,
+                  canvasState,
+                  setCanvasState,
+                  setTextArt,
+                  useAdvancedFeatures
+                });
+              }}
               disabled={!buttonActive.generate}
             />
           </div>
@@ -320,7 +235,7 @@ export default function Home() {
               iconSrc={downloadIcon}
               text={BUTTON_DOWNLOAD}
               className={btnStyles.download}
-              onClick={downloadTextArt}
+              onClick={() => { downloadTextArt({ canvasId: CANVAS_ID, text }) }}
               disabled={!buttonActive.download}
             />
           </div>
