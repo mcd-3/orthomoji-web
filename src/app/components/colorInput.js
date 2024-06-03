@@ -4,6 +4,14 @@ import styles from './../styles/components/color-input.module.css';
 
 import { nunito } from '/public/fonts/fonts.js';
 
+/**
+ * Input to select a colour
+ *
+ * @param {string} placeholder - Input placeholder text
+ * @param {string} colorState - Colour value
+ * @param {callback} setColorState - React state to set colour value
+ * @returns 
+ */
 export default function ColorInput({
   placeholder = "Color...",
   colorState,

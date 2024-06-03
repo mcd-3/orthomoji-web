@@ -7,6 +7,15 @@ import { nunito } from '/public/fonts/fonts.js';
 import arrowDown from '/public/icons/arrow-down.svg';
 import arrowRight from '/public/icons/arrow-right.svg';
 
+/**
+ * Container that can be collapsed
+ * 
+ * @param {HTML} children - HTML elements within the container
+ * @param {boolean} isExpanded - True if container should be expanded. False if it should be collapsed.
+ * @param {callback} onExpandChange - Callback to perform actions during expand/collapse events
+ * @param {string} collapsedText - Title text if the container is collapsed
+ * @param {string} expandedText - Title text if the container is expanded
+ */
 export default function CollapseContent({
   children,
   isExpanded,
