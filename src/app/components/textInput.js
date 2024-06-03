@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import styles from './../styles/components/text-input.module.css';
-import { nunito } from './../assets/fonts.js';
-import clearIcon from './../assets/close-rectangle.svg';
+import { nunito } from '/public/fonts/fonts.js';
+import clearIcon from '/public/icons/close-rectangle.svg';
 
 /**
  * Highly customised input

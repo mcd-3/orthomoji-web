@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { dancingScript } from '../assets/fonts.js';
+import { dancingScript } from '/public/fonts/fonts.js';
 import styles from './../styles/components/navbar.module.css';
-import githubLogo from '../assets/github-mark.svg';
+import githubLogo from '/public/icons/github-mark.svg';
 
 /**
  * Webapp NavBar. Displayed at all times at the top

@@ -1,35 +1,29 @@
-import { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
+import { useWindowResize } from './../hooks/useWindowResize.js';
 import styles from './../styles/components/color-input.module.css';
 
-import { nunito } from './../assets/fonts.js';
+import { nunito } from '/public/fonts/fonts.js';
 
+/**
+ * Input to select a colour
+ *
+ * @param {string} placeholder - Input placeholder text
+ * @param {string} colorState - Colour value
+ * @param {callback} setColorState - React state to set colour value
+ * @returns 
+ */
 export default function ColorInput({
   placeholder = "Color...",
   colorState,
   setColorState,
 }) {
-  const [width, setWidth] = useState(0);
-
   const clearBtnStyle = colorState == "" ? styles.disabled : styles["clear-button"];
-
-  useEffect(() => {
-      const handleWindowSizeChange = () => {
-        setWidth(window.innerWidth);
-      }
-
-      setWidth(window.innerWidth);
-      window.addEventListener('resize', handleWindowSizeChange);
-      return () => {
-          window.removeEventListener('resize', handleWindowSizeChange);
-      }
-  }, []);
+  const { isDesktop } = useWindowResize();
 
   const colourRef = useRef(null);
   const handleColorClick = () => {
     colourRef.current.click();
   }
-  
-  const isDesktop = width > 768;
 
   const textInput = <input
     className={styles["text-input"]}

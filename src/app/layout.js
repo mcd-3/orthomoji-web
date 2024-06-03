@@ -1,5 +1,5 @@
 import './globals.css'
-import { nunito } from '../app/assets/fonts.js';
+import { nunito } from '/public/fonts/fonts.js';
 
 export const metadata = {
   title: 'Orthomoji',

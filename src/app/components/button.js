@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import styles from './../styles/components/button.module.css';
 
-import { nunito } from './../assets/fonts.js';
+import { nunito } from '/public/fonts/fonts.js';
 
 /**
  * Stylised custom button
