@@ -24,6 +24,8 @@
     "BUTTON_DOWNLOAD": "Download",
     "BUTTON_CLEAR": "Clear",
     "HEADER_TITLE": "Customize your Message",
+    "HEADER_EMOJI_OPTIONS": "Emoji Options",
+    "HEADER_BACKGROUND_COLOUR": "Background Colour",
     "ADVANCED_FEATURES": "Advanced Features",
     "ADVANCED_FEATURES_EXTENDED": "Advanced features will only apply if this is expanded!",
     "BACKGROUND": "Background...",

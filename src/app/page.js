@@ -56,6 +56,8 @@ import {
   BUTTON_DOWNLOAD,
   BUTTON_CLEAR,
   HEADER_TITLE,
+  HEADER_EMOJI_OPTIONS,
+  HEADER_BACKGROUND_COLOUR,
   ADVANCED_FEATURES,
   ADVANCED_FEATURES_EXTENDED,
   BACKGROUND
@@ -105,7 +107,7 @@ export default function Home() {
   });
 
   const isWarningVisible = (isExpanded && (areEmojisMatching(emoji, secondaryEmoji) || isFontBig(emojiSize)));
-  const colourPickerClass = isDesktop ? "medium-row" : "large-row";
+  const advancedRowClass = isDesktop ? "medium-row" : "large-row";
   const canvas = <canvas id={CANVAS_ID} className="canvas"></canvas>;
 
   // Main text input to type text to emojify
@@ -295,9 +297,12 @@ export default function Home() {
               <div className={styles["large-row"]}>
                 <p className={styles["collapsed-disclaimer"]}>{ADVANCED_FEATURES_EXTENDED}</p>
               </div>
+              <div className={styles[advancedRowClass]}>
+                <Header text={HEADER_EMOJI_OPTIONS}/>
+              </div>
               {isDesktop
                 ?
-                  <div className={styles["large-row"]}>
+                  <div className={styles[advancedRowClass]}>
                     <div className={styles["emoji-size-container"]}>
                       { emojiSizeInput }
                     </div>
@@ -307,7 +312,7 @@ export default function Home() {
                   </div>
                 :
                 <div>
-                  <div className={styles["large-row"]}>
+                  <div className={styles[advancedRowClass]}>
                     <div className={styles["emoji-size-container"]}>
                       { emojiSizeInput }
                     </div>
@@ -320,7 +325,10 @@ export default function Home() {
                 </div>
               }
               <br/>
-              <div className={styles[colourPickerClass]}>
+              <div className={styles[advancedRowClass]}>
+                <Header text={HEADER_BACKGROUND_COLOUR}/>
+              </div>
+              <div className={styles[advancedRowClass]}>
                 <ColorInput
                   placeholder={BACKGROUND}
                   colorState={colorState}
